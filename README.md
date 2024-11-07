@@ -43,7 +43,7 @@ Para executar este projeto, é necessário:
 | Nome                          | Matrícula |
 |-------------------------------|-----------|
 | Rafaella Ferreira Pinheiro Silva | 5363      |
-| [Nome do Integrante 2]           | [Matrícula]|
+| Daniel Martins De Abreu          | 5798      |
 | [Nome do Integrante 3]           | [Matrícula]|
 | [Nome do Integrante 4]           | [Matrícula]|
 | [Nome do Integrante 5]           | [Matrícula]|
