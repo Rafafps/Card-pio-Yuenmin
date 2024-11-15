@@ -15,7 +15,7 @@
 ---
 
 ## Sobre o Projeto
-Este projeto foi desenvolvido para a disciplina de **Programação Orientada a Objetos** e tem como objetivo [descreva o objetivo do projeto, como simular um sistema bancário, um gerenciador de estoque, etc.]. O projeto explora conceitos como:
+Este projeto foi desenvolvido para a disciplina de **Programação Orientada a Objetos** e tem como objetivo fazer um sistema em java de um *o que a gente vai fazer* . O projeto explora conceitos como:
 - Encapsulamento
 - Herança
 - Polimorfismo
