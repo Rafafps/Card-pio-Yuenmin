@@ -44,7 +44,7 @@ Para executar este projeto, é necessário:
 |-------------------------------|-----------|
 | Rafaella Ferreira Pinheiro Silva | 5363      |
 | Daniel Martins De Abreu          | 5798      |
-| [Nome do Integrante 3]           | [Matrícula]|
+| Maria Eduarda O. G. Andrade      | 5365      |
 | [Nome do Integrante 4]           | [Matrícula]|
 | [Nome do Integrante 5]           | [Matrícula]|
 | [Nome do Integrante 6]           | [Matrícula]|
