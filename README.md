@@ -40,12 +40,12 @@ Para executar este projeto, é necessário:
 
 
 ## Autores
-| Nome                          | Matrícula |
-|-------------------------------|-----------|
+| Nome                             | Matrícula |
+|----------------------------------|-----------|
 | Rafaella Ferreira Pinheiro Silva | 5363      |
 | Daniel Martins De Abreu          | 5798      |
 | Maria Eduarda O. G. Andrade      | 5365      |
-| [Nome do Integrante 4]           | [Matrícula]|
+| Raíssa Tayná Xavier dos Santos   | 5790      |
 | [Nome do Integrante 5]           | [Matrícula]|
 | [Nome do Integrante 6]           | [Matrícula]|
 
