@@ -46,7 +46,7 @@ Para executar este projeto, é necessário:
 | Daniel Martins De Abreu          | 5798      |
 | Maria Eduarda O. G. Andrade      | 5365      |
 | Raíssa Tayná Xavier dos Santos   | 5790      |
-| [Nome do Integrante 5]           | [Matrícula]|
+| Rafael Chang                     | 5783      |
 | [Nome do Integrante 6]           | [Matrícula]|
 
 
