@@ -48,5 +48,6 @@ Para executar este projeto, é necessário:
 | Raíssa Tayná Xavier dos Santos   | 5790      |
 | Rafael Chang                     | 5783      |
 | Manoel Augusto Alves             | 5379      |
+| Ana Luísa Moreira Rodrigues      | 5389      |
 
 
