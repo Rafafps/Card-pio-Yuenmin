@@ -52,6 +52,9 @@ Serão seguidos os seguintes padrões durante a implementação do projeto:
 - **`fix`**: Correção de bug.
 - **`task`**: Tarefas que não implementam funcionalidade e nem correção de código
 - **`refactor`**: Refatoração de código.
+- Ex: 
+feat #12: adiciona classe Salada
+fix #5: alteracao do metodo getSalada
 
 ## Autores
 | Nome                             | Matrícula |
