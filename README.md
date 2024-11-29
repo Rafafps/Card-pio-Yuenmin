@@ -48,6 +48,7 @@ Para executar este projeto, é necessário:
 Serão seguidos os seguintes padrões durante a implementação do projeto:
 - camelCase
 - Temos os seguintes identificadores para as mensagens dos commits:
+  
   **`feat`**: Novo recurso ou funcionalidade.
   
   **`fix`**: Correção de bug.
