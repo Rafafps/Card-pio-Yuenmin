@@ -56,6 +56,8 @@ Serão seguidos os seguintes padrões durante a implementação do projeto:
   **`task`**: Tarefas que não implementam funcionalidade e nem correção de código
   
   **`refactor`**: Refatoração de código.
+
+  **`test`**: Adição ou correção de testes.
   
 - Ex:
   
