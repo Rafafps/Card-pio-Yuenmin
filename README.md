@@ -41,6 +41,7 @@ O projeto está organizado nas seguintes classes:
 Para executar este projeto, é necessário:
 - [Java]
 - [IDE utilizada foi o IntelliJ na sua maioria]
+- [JavaFx]
 
 
 
