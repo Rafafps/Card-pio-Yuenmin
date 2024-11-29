@@ -48,10 +48,14 @@ Para executar este projeto, é necessário:
 Serão seguidos os seguintes padrões durante a implementação do projeto:
 - camelCase
 - Temos os seguintes identificadores para as mensagens dos commits:
-- **`feat`**: Novo recurso ou funcionalidade.
-- **`fix`**: Correção de bug.
-- **`task`**: Tarefas que não implementam funcionalidade e nem correção de código
-- **`refactor`**: Refatoração de código.
+  **`feat`**: Novo recurso ou funcionalidade.
+  
+  **`fix`**: Correção de bug.
+  
+  **`task`**: Tarefas que não implementam funcionalidade e nem correção de código
+  
+  **`refactor`**: Refatoração de código.
+  
 - Ex:
   
 feat #12: adiciona classe Salada
