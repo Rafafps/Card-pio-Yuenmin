@@ -44,6 +44,8 @@ Para executar este projeto, é necessário:
 - [JavaFx]
 
 
+## Padrões
+Serão seguidos os seguintes padrões durante a implementação do projeto:
 
 ## Autores
 | Nome                             | Matrícula |
