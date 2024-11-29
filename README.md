@@ -20,18 +20,18 @@ Este projeto foi desenvolvido para a disciplina de **Programação Orientada a O
 Um Cardápio Digital de Visualização criado para facilitar a consulta aos itens disponíveis no estabelecimento. 
 A ferramenta permite que os clientes visualizem o menu, conheçam as opções de produtos, preços e descrições detalhadas, mas não possibilita a realização de pedidos diretamente pelo sistema.
 
-O projeto explora conceitos como:
+O projeto deve explorar conceitos como:
 - Encapsulamento
 - Herança
 - Polimorfismo
 - Abstração
 
-## Funcionalidades
+## Funcionalidades (será completado  ao decorrer do projeto)
 - **Funcionalidade 1**: [Descrição da funcionalidade 1]
 - **Funcionalidade 2**: [Descrição da funcionalidade 2]
 - **Funcionalidade 3**: [Descrição da funcionalidade 3]
 
-## Estrutura do Projeto
+## Estrutura do Projeto (será completado ao decorrer do projeto)
 O projeto está organizado nas seguintes classes:
 - **Classe Principal** (`MainClass`): [Descrição da classe principal e sua função]
 - **Classe Auxiliar 1** (`Class1`): [Descrição da primeira classe auxiliar e sua função]
