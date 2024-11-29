@@ -1,7 +1,5 @@
 # Trabalho de Programação Orientada a Objetos (POO)
 
-Este é um Cardápio Digital de Visualização criado para facilitar a consulta aos itens disponíveis no estabelecimento. A ferramenta permite que os clientes visualizem o menu, conheçam as opções de produtos, preços e descrições detalhadas, mas não possibilita a realização de pedidos diretamente pelo sistema.
-
 ![Licença](https://img.shields.io/badge/Licença-MIT-blue.svg)
 
 ## Índice
@@ -17,7 +15,12 @@ Este é um Cardápio Digital de Visualização criado para facilitar a consulta 
 ---
 
 ## Sobre o Projeto
-Este projeto foi desenvolvido para a disciplina de **Programação Orientada a Objetos** e tem como objetivo fazer um sistema em java de um *Cardapio de Restaurante* . O projeto explora conceitos como:
+Este projeto foi desenvolvido para a disciplina de **Programação Orientada a Objetos** e tem como objetivo:
+
+Um Cardápio Digital de Visualização criado para facilitar a consulta aos itens disponíveis no estabelecimento. 
+A ferramenta permite que os clientes visualizem o menu, conheçam as opções de produtos, preços e descrições detalhadas, mas não possibilita a realização de pedidos diretamente pelo sistema.
+
+O projeto explora conceitos como:
 - Encapsulamento
 - Herança
 - Polimorfismo
