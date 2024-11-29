@@ -61,9 +61,9 @@ Serão seguidos os seguintes padrões durante a implementação do projeto:
   
 - Ex:
   
-feat #12: adiciona classe Salada
+  feat #12: adiciona classe Salada
 
-fix #5: alteracao do metodo getSalada
+  fix #5: alteracao do metodo getSalada
 
 ## Autores
 | Nome                             | Matrícula |
