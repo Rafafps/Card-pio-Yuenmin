@@ -84,7 +84,7 @@ public class Produto {
         this.tamanho = tamanho;
     }
 
-    // Método para calcular o preço total do produto, considerando a quantidade
+    // Metodo para calcular o preço total do produto, considerando a quantidade
     public int calculaPreco() {
         return this.preco * this.quantidade;
     }
