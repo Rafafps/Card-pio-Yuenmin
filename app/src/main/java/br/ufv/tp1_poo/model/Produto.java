@@ -1,5 +1,7 @@
 package br.ufv.tp1_poo.model;
 
+import org.json.JSONObject;
+
 public class Produto {
     private int preco;
     private String nome;
@@ -22,6 +24,7 @@ public class Produto {
         this.tamanho = tamanho;
     }
 
+    // Getters e Setters
     public int getPreco() {
         return preco;
     }
@@ -89,6 +92,25 @@ public class Produto {
     // Metodo para calcular o preço total do produto, considerando a quantidade
     public int calculaPreco() {
         return this.preco * this.quantidade;
+    }
+
+    // Metodo estático para criar um Produto a partir de um JSONObject
+    public static Produto fromJson(JSONObject jsonObject) {
+        try {
+            int preco = jsonObject.optInt("preco", 0);
+            String nome = jsonObject.optString("nome", "Sem nome");
+            int quantidade = jsonObject.optInt("quantidade", 1); // Padrão: 1
+            String descricao = jsonObject.optString("descricao", "Sem descrição");
+            String imagem = jsonObject.optString("imagem", ""); // URL ou vazio
+            String categoria = jsonObject.optString("categoria", "Sem categoria");
+            String observacao = jsonObject.optString("observacao", "Sem observação");
+            String tamanho = jsonObject.optString("tamanho", "Único");
+
+            return new Produto(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // Retorna null em caso de erro
+        }
     }
 
     @Override
