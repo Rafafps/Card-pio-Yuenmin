@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="122dp"
+    android:orientation="horizontal"
+    android:background="@drawable/sombra_buttoncardapio"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp">
+
+    <!-- Informações do produto -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical"> <!-- Alinha verticalmente -->
+
+    <!-- Nome do produto -->
+    <TextView
+        android:id="@+id/nomeProduto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Produto"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:maxLines="1"
+        android:ellipsize="end" /> <!-- Trunca o texto longo -->
+
+    <!-- Descrição do produto -->
+    <TextView
+        android:id="@+id/descricaoProduto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição do produto"
+        android:fontFamily="@font/montserrat_regular"
+        android:textSize="8sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- Preço do produto -->
+    <TextView
+        android:id="@+id/precoProduto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$xx,xx"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_orange_dark"
+        android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <!-- Imagem do produto -->
+    <ImageView
+        android:id="@+id/imagemProduto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="16dp" />
+</LinearLayout>

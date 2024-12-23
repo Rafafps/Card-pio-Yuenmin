@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="laranjaclaro">#FCD8B2</color>
+    <color name="laranja">#EC6B2B</color>
+    <color name="cinza">#9A9A9D</color>
 </resources>
