@@ -3,7 +3,6 @@ package br.ufv.tp1_poo.view;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,8 +80,6 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
             Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Imagem padrão em caso de erro
         }
     }
-
-
 
     private void alterarQuantidade(int delta) {
         quantidade = Math.max(1, quantidade + delta);

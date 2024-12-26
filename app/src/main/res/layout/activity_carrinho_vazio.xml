@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".view.CarrinhoVazioActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="30dp">
+
+            <!-- Botão Voltar -->
+            <TextView
+                android:id="@+id/botaoVoltar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_semibold"
+                android:drawableStart="@drawable/voltar"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="10dp"/>
+
+            <!-- Título Carrinho -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="100dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Carrinho"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+
+        <!-- Imagem do Carrinho -->
+        <ImageView
+            android:id="@+id/imagemProduto"
+            android:layout_width="120dp"
+            android:layout_height="113dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="130dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/carrinho_vazio" />
+
+        <!-- Descricao -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Não há pedidos ainda"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textSize="28sp"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- Descrição 2 -->
+        <TextView
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="Clique no botão laranja para ir para página inicial e  poder realizar pedidos."
+            android:textSize="17sp"
+            android:layout_marginBottom="80dp"/>
+
+        <!-- Botão Voltar Tela Inicial -->
+        <TextView
+            android:id="@+id/botaoVoltarInicial"
+            android:layout_width="314dp"
+            android:layout_height="70dp"
+            android:background="@drawable/sombra_buttoncardapio"
+            android:backgroundTint="@color/laranja"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="Ir para à página Inicial"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+</ScrollView>

@@ -25,7 +25,7 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/cart_icon"
+            android:id="@+id/carrinho"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"

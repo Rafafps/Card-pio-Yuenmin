@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Tp1_poo"
         tools:targetApi="34">
         <activity
+            android:name=".view.CarrinhoVazioActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.DetalhesProdutoActivity"
             android:exported="false" />
         <activity
