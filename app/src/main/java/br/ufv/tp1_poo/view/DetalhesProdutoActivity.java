@@ -1,6 +1,8 @@
 package br.ufv.tp1_poo.view;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,20 +56,32 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
 
     private void carregarProduto() {
         try {
+            // Carregar imagem do produto
             int resourceId = getResources().getIdentifier(produto.getImagem(), "drawable", getPackageName());
             if (resourceId != 0) {
                 Glide.with(this).load(resourceId).into(imagemProduto);
             } else {
-                Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Carregar imagem padrão
+                Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Imagem padrão
             }
+
+            // Configurar texto dos campos
             nomeProduto.setText(produto.getNome());
             descricaoProduto.setText(produto.getDescricao());
-            botaoAdicionar.setText("Adicionar R$ " + String.format("%.2f", produto.getPreco() / 100.0));
+
+            // Formatar texto manualmente
+            String precoFormatado = String.format("%.2f", produto.getPreco() / 100.0);
+            String textoHtml = "Adicionar <b><big>R$ " + precoFormatado + "</big></b>";
+
+            // Aplicar formatação usando Html.fromHtml
+            Spanned textoFormatado = Html.fromHtml(textoHtml, Html.FROM_HTML_MODE_LEGACY);
+            botaoAdicionar.setText(textoFormatado);
+
         } catch (Exception e) {
             e.printStackTrace();
-            Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Carregar imagem padrão
+            Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Imagem padrão em caso de erro
         }
     }
+
 
 
     private void alterarQuantidade(int delta) {
