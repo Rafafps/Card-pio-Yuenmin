@@ -1,8 +1,9 @@
 package br.ufv.tp1_poo.model;
 
 import org.json.JSONObject;
+import java.io.Serializable;
 
-public class Produto {
+public class Produto implements Serializable {
     private int preco;
     private String nome;
     private int quantidade;

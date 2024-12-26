@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">YuenMin圓明</string>
+    <string name="botao_adicionar">Adicionar <b><big>R$ %s</big></b></string>
 </resources>
