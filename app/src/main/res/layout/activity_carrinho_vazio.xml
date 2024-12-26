@@ -82,9 +82,9 @@
             android:textSize="17sp"
             android:layout_marginBottom="80dp"/>
 
-        <!-- Botão Adicionar -->
+        <!-- Botão Voltar Tela Inicial -->
         <TextView
-            android:id="@+id/botaoAdicionar"
+            android:id="@+id/botaoVoltarInicial"
             android:layout_width="314dp"
             android:layout_height="70dp"
             android:background="@drawable/sombra_buttoncardapio"

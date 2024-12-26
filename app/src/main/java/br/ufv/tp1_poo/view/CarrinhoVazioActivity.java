@@ -1,26 +1,32 @@
 package br.ufv.tp1_poo.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import br.ufv.tp1_poo.R;
 
 public class CarrinhoVazioActivity extends AppCompatActivity {
 
+    private TextView botaoVoltar;
+    private TextView botaoVoltarInicial;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Habilita o uso de tela cheia
         setContentView(R.layout.activity_carrinho_vazio);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        botaoVoltar = findViewById(R.id.botaoVoltar);
+        botaoVoltarInicial = findViewById(R.id.botaoVoltarInicial);
+
+        // Ação dos buttons
+        botaoVoltar.setOnClickListener(v -> finish()); // Finaliza a atividade atual
+        botaoVoltarInicial.setOnClickListener(v -> {
+            Intent intent = new Intent(CarrinhoVazioActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         configurarRecyclerView();
         inicializarTabs();
         configurarTabs();
+
+        // Configurar clique na imagem do carrinho
+        ImageView imagemCarrinho = findViewById(R.id.carrinho);
+        imagemCarrinho.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CarrinhoVazioActivity.class);
+            startActivity(intent);
+        });
     }
 
     // Configura o RecyclerView para exibir a lista de produtos.
