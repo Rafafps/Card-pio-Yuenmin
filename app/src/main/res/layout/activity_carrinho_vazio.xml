@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
 
             <!-- Botão Voltar -->
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginStart="100dp"
                 android:fontFamily="@font/montserrat_bold"
@@ -54,12 +54,11 @@
             android:layout_width="120dp"
             android:layout_height="113dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="130dp"
             android:layout_marginBottom="40dp"
-            android:background="@drawable/carrinho_vazio"
-            android:scaleType="centerCrop" />
+            android:background="@drawable/carrinho" />
 
-        <!-- Descrição -->
+        <!-- Descricao -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
