@@ -13,9 +13,8 @@ import br.ufv.tp1_poo.model.Produto;
 public class DetalhesProdutoActivity extends AppCompatActivity {
 
     private ImageView imagemProduto;
-    private TextView nomeProduto, descricaoProduto, quantidadeProduto, botaoVoltar, botaoAdicionar;
+    private TextView nomeProduto, descricaoProduto, quantidadeProduto, botaoVoltar, botaoAdicionar, botaoAumentar, botaoDiminuir;
     private EditText observacaoProduto;
-    private Button botaoAumentar, botaoDiminuir;
 
     private Produto produto;
     private int quantidade = 1;
@@ -54,11 +53,22 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     }
 
     private void carregarProduto() {
-        Glide.with(this).load(produto.getImagem()).into(imagemProduto);
-        nomeProduto.setText(produto.getNome());
-        descricaoProduto.setText(produto.getDescricao());
-        botaoAdicionar.setText("Adicionar R$ " + String.format("%.2f", produto.getPreco() / 100.0));
+        try {
+            int resourceId = getResources().getIdentifier(produto.getImagem(), "drawable", getPackageName());
+            if (resourceId != 0) {
+                Glide.with(this).load(resourceId).into(imagemProduto);
+            } else {
+                Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Carregar imagem padrão
+            }
+            nomeProduto.setText(produto.getNome());
+            descricaoProduto.setText(produto.getDescricao());
+            botaoAdicionar.setText("Adicionar R$ " + String.format("%.2f", produto.getPreco() / 100.0));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Glide.with(this).load(R.drawable.imagem_carregando).into(imagemProduto); // Carregar imagem padrão
+        }
     }
+
 
     private void alterarQuantidade(int delta) {
         quantidade = Math.max(1, quantidade + delta);

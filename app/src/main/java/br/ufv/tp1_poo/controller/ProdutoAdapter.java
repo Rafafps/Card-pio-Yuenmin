@@ -51,7 +51,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
 
         // Carregar imagem do produto com Glide
         Glide.with(holder.itemView.getContext())
-                .load(produto.getImagem())
+                .load("file:///android_asset/" + produto.getImagem())
                 .placeholder(R.drawable.imagem_carregando)
                 .error(R.drawable.imagem_carregando)
                 .into(holder.imagemProduto);
