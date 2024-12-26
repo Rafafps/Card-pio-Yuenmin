@@ -59,7 +59,7 @@
             android:background="@drawable/carrinho_vazio"
             android:scaleType="centerCrop" />
 
-        <!-- Nome do Produto -->
+        <!-- Descrição -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:layout_marginBottom="25dp"
             android:layout_gravity="center_horizontal" />
 
-        <!-- Descrição do Produto -->
+        <!-- Descrição 2 -->
         <TextView
             android:layout_width="296dp"
             android:layout_height="wrap_content"
