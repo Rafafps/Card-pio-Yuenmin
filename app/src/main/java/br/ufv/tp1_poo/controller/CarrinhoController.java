@@ -19,7 +19,7 @@ public class CarrinhoController {
         }
         produtos.add(produto);
     }
-    // Remover produto do carrinho, um unico
+    // Removendo produto do carrinho
     public void removerProdutoDoCarrinho(String nome, String tamanho) {
         for (Iterator<Produto> iterator = produtos.iterator(); iterator.hasNext(); ) {
             Produto produto = iterator.next();
@@ -38,7 +38,7 @@ public class CarrinhoController {
         }
         return total;
     }
-    // Obter lista de produtos no carrinho
+    // Obtendo lista de produtos no carrinho (Achei necessário, mas talvez nn é)
     public List<Produto> getProdutos() {
         return produtos;
     }
