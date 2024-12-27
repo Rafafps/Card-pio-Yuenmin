@@ -1,4 +1,4 @@
-package br.ufv.tp1_poo.model;
+
 
 import org.json.JSONObject;
 import java.io.Serializable;
