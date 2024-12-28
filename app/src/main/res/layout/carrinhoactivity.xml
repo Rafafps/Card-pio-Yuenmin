@@ -76,45 +76,13 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- TextView exibida quando o carrinho está vazio -->
-        <TextView
-            android:id="@+id/textCarrinhoVazio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Seu carrinho está vazio"
-            android:textSize="18sp"
-            android:textColor="@android:color/darker_gray"
-            android:gravity="center"
-            android:visibility="visible" /> <!-- Inicialmente visível -->
-
         <!-- Lista de itens do carrinho -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewItens"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:clipToPadding="false"
-            android:visibility="gone"/> <!-- Inicialmente invisível -->
-
-        <!-- Forma de pagamento -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Forma de pagamento"
-            android:paddingStart="8dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:fontFamily="@font/montserrat_medium"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="10dp" />
-
-        <Spinner
-            android:id="@+id/spinnerFormaPagamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/caixa_suspensa"
-            android:padding="12dp"
-            android:drawableEnd="@drawable/seta_baixo" />
+            android:clipToPadding="false" />
 
         <!-- Resumo de valores -->
         <TextView
@@ -201,7 +169,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Botão finalizar pedido -->
+        <!-- Botão finalizar pedido (ajustado na lateral) -->
         <Button
             android:id="@+id/botaoFinalizarPedido"
             android:layout_width="match_parent"
@@ -210,6 +178,11 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="Finalizar pedido"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleX="0.95"
+            android:scaleY="0.95"/>
     </LinearLayout>
 </LinearLayout>

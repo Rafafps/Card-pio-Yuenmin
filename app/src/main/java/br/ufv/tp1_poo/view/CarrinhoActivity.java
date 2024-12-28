@@ -30,10 +30,6 @@ public class CarrinhoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carrinhoactivity);
 
-        recyclerViewCarrinho = findViewById(R.id.recyclerViewCarrinho);
-        spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento); // Vincula o Spinner do layout
-
-
         // Configuração do Spinner
         configurarSpinnerFormaPagamento();
 
@@ -116,5 +112,17 @@ public class CarrinhoActivity extends AppCompatActivity {
             recyclerViewCarrinho.setVisibility(View.VISIBLE);  // Exibe o RecyclerView
             textVazio.setVisibility(View.GONE);  // Oculta o TextView "Carrinho vazio"
         }
+
+        // Se o carrinho não estiver vazio, atualiza o texto do RecyclerView com números
+        atualizarTextoCarrinho();
+    }
+
+    // Método para atualizar o texto do carrinho com os números dos itens
+    private void atualizarTextoCarrinho() {
+        for (int i = 0; i < carrinho.size(); i++) {
+            Produto produto = carrinho.get(i);
+            produto.setNome("Item " + (i + 1) + ": " + produto.getNome());  // Adiciona o número do item
+        }
+        carrinhoAdapter.notifyDataSetChanged();
     }
 }

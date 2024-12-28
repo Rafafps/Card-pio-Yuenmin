@@ -5,7 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,9 +42,23 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Carrin
         holder.precoProduto.setText("R$ " + produto.getPreco());
         holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
 
-        // Adicionar clique nos botões de adicionar e remover
+
         holder.btnAdicionar.setOnClickListener(v -> onCarrinhoClickListener.onAdicionarItemClick(produto));
         holder.btnRemover.setOnClickListener(v -> onCarrinhoClickListener.onRemoverItemClick(produto));
+
+
+
+        holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Ação quando nada for selecionado
+            }
+        });
     }
 
     @Override
@@ -53,6 +70,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Carrin
         TextView nomeProduto, precoProduto, quantidadeProduto;
         ImageView imagemProduto;
         ImageButton btnAdicionar, btnRemover;
+        Spinner spinner;
 
         public CarrinhoViewHolder(View itemView) {
             super(itemView);
@@ -62,6 +80,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Carrin
             quantidadeProduto = itemView.findViewById(R.id.quantidadeProduto);
             imagemProduto = itemView.findViewById(R.id.imagemProduto);
             btnRemover = itemView.findViewById(R.id.btnRemoverProduto);
+            spinner = itemView.findViewById(R.id.spinner); // Referência ao Spinner
         }
     }
 
