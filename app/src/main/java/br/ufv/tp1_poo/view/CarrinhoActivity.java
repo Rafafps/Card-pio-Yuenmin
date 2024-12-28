@@ -1,11 +1,10 @@
 package br.ufv.tp1_poo.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,98 +20,101 @@ import java.util.List;
 public class CarrinhoActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewCarrinho;
-    private TextView subtotal, taxaServico, total;
-    private Button botaoSelecionarPagamento, botaoVoltar, botaoLimparCarrinho;
     private CarrinhoAdapter carrinhoAdapter;
-    private List<Produto> produtos;
-    private Spinner spinnerFormaPagamento;
+    private List<Produto> carrinho = new ArrayList<>(); // Carrinho de compras
+    private Spinner spinnerFormaPagamento; // Spinner para forma de pagamento
+    private TextView textVazio; // TextView para mensagem de carrinho vazio
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carrinhoactivity);
 
-        // Inicialização dos componentes
-        recyclerViewCarrinho = findViewById(R.id.recyclerCarrinho);
-        subtotal = findViewById(R.id.subtotal);
-        taxaServico = findViewById(R.id.taxaServico);
-        total = findViewById(R.id.total);
-        spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
-        botaoSelecionarPagamento = findViewById(R.id.finalizarPedido);  // Alterado para o botão correto
-        botaoVoltar = findViewById(R.id.botaoVoltar); // Adicionei a referência ao botão de voltar, caso precise
-        botaoLimparCarrinho = findViewById(R.id.botaoLimparCarrinho); // Referência do botão de limpar carrinho, caso precise
+        recyclerViewCarrinho = findViewById(R.id.recyclerViewCarrinho);
+        spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento); // Vincula o Spinner do layout
 
-        // Inicialização da lista de produtos (simulação para teste)
-        produtos = new ArrayList<>();
-        produtos.add(new Produto("Mix de tomate", 32.99, 1));
-        produtos.add(new Produto("Rolinho primavera", 24.50, 2));
 
-        // Configuração do Adapter
-        carrinhoAdapter = new CarrinhoAdapter(produtos, new CarrinhoAdapter.OnCarrinhoClickListener() {
+        // Configuração do Spinner
+        configurarSpinnerFormaPagamento();
+
+        // Inicialize o adapter
+        carrinhoAdapter = new CarrinhoAdapter(carrinho, new CarrinhoAdapter.OnCarrinhoClickListener() {
             @Override
-            public void onRemoverItemClick(Produto produto) {
-                if (produto.getQuantidade() > 1) {
-                    produto.setQuantidade(produto.getQuantidade() - 1);
-                } else {
-                    produtos.remove(produto);
-                }
-                carrinhoAdapter.notifyDataSetChanged();
-                atualizarResumoValores();
+            public void onAdicionarItemClick(Produto produto) {
+                // Aumenta a quantidade do produto no carrinho
+                adicionarProdutoAoCarrinho(produto);
             }
 
             @Override
-            public void onAdicionarItemClick(Produto produto) {
-                produto.setQuantidade(produto.getQuantidade() + 1);
-                carrinhoAdapter.notifyDataSetChanged();
-                atualizarResumoValores();
+            public void onRemoverItemClick(Produto produto) {
+                // Remove o produto do carrinho
+                removerProdutoDoCarrinho(produto);
             }
         });
 
         recyclerViewCarrinho.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCarrinho.setAdapter(carrinhoAdapter);
 
-        // Botão de limpar carrinho
-        botaoLimparCarrinho.setOnClickListener(v -> limparCarrinho());
+        // Atualizar a visibilidade do RecyclerView dependendo se o carrinho tem itens
+        atualizarVisibilidadeCarrinho();
+    }
 
-        // Botão de voltar
-        botaoVoltar.setOnClickListener(v -> finish());
+    // Método para configurar o Spinner
+    private void configurarSpinnerFormaPagamento() {
+        // Lista de formas de pagamento
+        List<String> formasDePagamento = new ArrayList<>();
+        formasDePagamento.add("Cartão de Crédito");
+        formasDePagamento.add("Cartão de Débito");
+        formasDePagamento.add("Pix");
+        formasDePagamento.add("Dinheiro");
 
-        // Botão de selecionar pagamento
-        botaoSelecionarPagamento.setOnClickListener(v -> {
-            if (produtos.isEmpty()) {
-                Toast.makeText(CarrinhoActivity.this, "Carrinho vazio! Adicione produtos antes de pagar.", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(CarrinhoActivity.this, PagamentoActivity.class);
-                // Passar dados para a próxima tela (se necessário)
-                startActivity(intent);
+        // Configura o adapter do Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, formasDePagamento);
+        spinnerFormaPagamento.setAdapter(adapter);
+    }
+
+    // Método para adicionar um produto ao carrinho
+    private void adicionarProdutoAoCarrinho(Produto produto) {
+        boolean produtoEncontrado = false;
+
+        // Verifica se o produto já existe no carrinho
+        for (Produto p : carrinho) {
+            if (p.getNome().equals(produto.getNome())) {
+                p.setQuantidade(p.getQuantidade() + 1); // Aumenta a quantidade
+                produtoEncontrado = true;
+                break;
             }
-        });
-
-        // Atualizar valores do carrinho
-        atualizarResumoValores();
-    }
-
-    // Limpar todos os itens do carrinho
-    private void limparCarrinho() {
-        produtos.clear();
-        carrinhoAdapter.notifyDataSetChanged();
-        atualizarResumoValores();
-        Toast.makeText(this, "Carrinho limpo!", Toast.LENGTH_SHORT).show();
-    }
-
-    // Atualizar valores (subtotal, taxa de serviço e total)
-    private void atualizarResumoValores() {
-        double subtotalValor = 0.0;
-        for (Produto produto : produtos) {
-            subtotalValor += produto.getPreco() * produto.getQuantidade();
         }
 
-        double taxaServicoValor = subtotalValor * 0.05; // Exemplo: taxa de 5%
-        double totalValor = subtotalValor + taxaServicoValor;
+        // Se não encontrou, adiciona um novo produto
+        if (!produtoEncontrado) {
+            carrinho.add(produto);
+        }
 
-        // Atualizando os textos
-        subtotal.setText(String.format("Subtotal: R$%.2f", subtotalValor));
-        taxaServico.setText(String.format("Taxa de serviço: R$%.2f", taxaServicoValor));
-        total.setText(String.format("Total: R$%.2f", totalValor));
+        carrinhoAdapter.notifyDataSetChanged();  // Atualiza o adapter
+        atualizarVisibilidadeCarrinho();  // Atualiza a visibilidade do RecyclerView
+    }
+
+    // Método para remover um produto do carrinho
+    private void removerProdutoDoCarrinho(Produto produto) {
+        if (produto.getQuantidade() > 1) {
+            produto.setQuantidade(produto.getQuantidade() - 1);  // Diminui a quantidade
+        } else {
+            carrinho.remove(produto);  // Remove o produto do carrinho
+        }
+
+        carrinhoAdapter.notifyDataSetChanged();  // Atualiza o adapter
+        atualizarVisibilidadeCarrinho();  // Atualiza a visibilidade do RecyclerView
+    }
+
+    // Atualiza a visibilidade do RecyclerView dependendo se o carrinho tem itens
+    private void atualizarVisibilidadeCarrinho() {
+        if (carrinho.isEmpty()) {
+            recyclerViewCarrinho.setVisibility(View.GONE);  // Oculta o RecyclerView
+            textVazio.setVisibility(View.VISIBLE);  // Exibe o TextView "Carrinho vazio"
+        } else {
+            recyclerViewCarrinho.setVisibility(View.VISIBLE);  // Exibe o RecyclerView
+            textVazio.setVisibility(View.GONE);  // Oculta o TextView "Carrinho vazio"
+        }
     }
 }
