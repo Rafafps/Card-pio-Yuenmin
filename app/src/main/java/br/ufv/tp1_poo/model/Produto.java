@@ -3,7 +3,7 @@ package br.ufv.tp1_poo.model;
 import org.json.JSONObject;
 import java.io.Serializable;
 
-public class Produto implements Serializable {
+public abstract class Produto implements Serializable {
     private int preco;
     private String nome;
     private int quantidade;
@@ -90,29 +90,46 @@ public class Produto implements Serializable {
         this.tamanho = tamanho;
     }
 
-    // Metodo para calcular o preço total do produto, considerando a quantidade
+    // Método abstrato para ser implementado pelas subclasses
+    public abstract String getTamanhoFormatado();
+
+    // Método para calcular o preço total
     public int calculaPreco() {
         return this.preco * this.quantidade;
     }
 
-    // Metodo estático para criar um Produto a partir de um JSONObject
     public static Produto fromJson(JSONObject jsonObject) {
         try {
             int preco = jsonObject.optInt("preco", 0);
             String nome = jsonObject.optString("nome", "Sem nome");
-            int quantidade = jsonObject.optInt("quantidade", 1); // Padrão: 1
+            int quantidade = jsonObject.optInt("quantidade", 1);
             String descricao = jsonObject.optString("descricao", "Sem descrição");
-            String imagem = jsonObject.optString("imagem", ""); // URL ou vazio
+            String imagem = jsonObject.optString("imagem", "");
             String categoria = jsonObject.optString("categoria", "Sem categoria");
             String observacao = jsonObject.optString("observacao", "Sem observação");
             String tamanho = jsonObject.optString("tamanho", "Único");
 
-            return new Produto(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+            // Escolher subclasse com base na categoria
+            switch (categoria.toLowerCase()) {
+                case "vegetariano":
+                    return new Vegetariano(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+                case "bebida":
+                    return new Bebida(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+                case "vegano":
+                    return new Vegano(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+                case "acréscimos":
+                    return new Acrescimos(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+                case "congelado":
+                    return new Congelado(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+                default:
+                    throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null; // Retorna null em caso de erro
         }
     }
+
 
     @Override
     public String toString() {
