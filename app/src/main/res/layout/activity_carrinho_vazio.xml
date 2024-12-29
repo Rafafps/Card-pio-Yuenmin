@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -46,7 +46,6 @@
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </LinearLayout>
-
 
         <!-- Imagem do Carrinho -->
         <ImageView
@@ -95,4 +94,4 @@
             android:textColor="@color/white"
             android:textSize="17sp" />
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

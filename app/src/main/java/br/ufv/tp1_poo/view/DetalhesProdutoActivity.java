@@ -1,5 +1,6 @@
 package br.ufv.tp1_poo.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -51,6 +52,16 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         botaoAumentar.setOnClickListener(v -> alterarQuantidade(1));
         botaoDiminuir.setOnClickListener(v -> alterarQuantidade(-1));
         botaoVoltar.setOnClickListener(v -> finish());
+
+        botaoAdicionar.setOnClickListener(v -> {
+            // Configurar a quantidade do produto
+            //produto.setQuantidade(quantidade);
+            // Adicionar o produto ao Carrinho (estático)
+            //Carrinho.adicionaProduto(produto);
+            // Criar intent para abrir a tela de Carrinho
+            Intent intent = new Intent(DetalhesProdutoActivity.this, CarrinhoActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void carregarProduto() {
