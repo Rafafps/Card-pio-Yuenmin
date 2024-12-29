@@ -76,6 +76,7 @@
         <!-- Lista de itens do carrinho -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewItens"
+            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -98,11 +99,13 @@
             android:layout_width="277dp"
             android:layout_height="wrap_content"
             android:background="@drawable/caixa_suspensa"
-            android:drawableEnd="@drawable/seta_baixo"
+            android:drawableRight="@drawable/seta_baixo"
             android:fontFamily="@font/montserrat_medium"
             android:padding="12dp"
             android:paddingStart="8dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingEnd="16dp" />
+
 
 
         <!-- Resumo de valores -->

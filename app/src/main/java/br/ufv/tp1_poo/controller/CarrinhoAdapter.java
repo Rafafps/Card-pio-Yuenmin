@@ -37,7 +37,6 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Carrin
         holder.precoProduto.setText("R$ " + produto.getPreco());
         holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
 
-        holder.btnAdicionar.setOnClickListener(v -> onCarrinhoClickListener.onAdicionarItemClick(produto));
         holder.btnRemover.setOnClickListener(v -> onCarrinhoClickListener.onRemoverItemClick(produto));
     }
 
@@ -49,7 +48,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Carrin
     public static class CarrinhoViewHolder extends RecyclerView.ViewHolder {
         TextView nomeProduto, precoProduto, quantidadeProduto;
         ImageView imagemProduto;
-        ImageButton btnAdicionar, btnRemover;
+        ImageButton btnRemover;
 
         public CarrinhoViewHolder(View itemView) {
             super(itemView);
