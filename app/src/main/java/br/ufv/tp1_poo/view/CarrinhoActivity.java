@@ -33,6 +33,8 @@ public class CarrinhoActivity extends AppCompatActivity {
         recyclerViewCarrinho = findViewById(R.id.recyclerViewItens);
         spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
         textViewTotal = findViewById(R.id.textTotal);
+        botaoVoltar = findViewById(R.id.botaoVoltar);
+        botaoFinalizarPedido = findViewById(R.id.botaoFinalizarPedido);
 
         // Verifica se o carrinho está vazio no início
         if (carrinho.isEmpty()) {
@@ -70,8 +72,16 @@ public class CarrinhoActivity extends AppCompatActivity {
         // Atualiza o total
         atualizarTotal();
 
+        // Lógica do botão Voltar
         botaoVoltar.setOnClickListener(v -> finish());
-        botaoFinalizarPedido.setOnClickListener(v -> finish());
+
+        // Lógica do botão Finalizar Pedido
+        botaoFinalizarPedido.setOnClickListener(v -> {
+            // Redireciona para a tela de Pedido Finalizado
+            Intent intent = new Intent(CarrinhoActivity.this, PedidoFinalizadoActivity.class);
+            startActivity(intent);
+            finish(); // Finaliza a CarrinhoActivity após o redirecionamento
+        });
     }
 
     private void configurarSpinnerFormaPagamento() {
