@@ -80,12 +80,6 @@
             android:text="R$ xx,xx"
             android:textColor="@color/laranja"
             android:textSize="15sp" />
-
-        <!-- Spinner de opções -->
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <!-- Botão de remover -->

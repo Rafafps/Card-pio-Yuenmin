@@ -1,19 +1,16 @@
 package br.ufv.tp1_poo.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.controller.CarrinhoAdapter;
 import br.ufv.tp1_poo.model.Produto;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +18,26 @@ public class CarrinhoActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewCarrinho;
     private CarrinhoAdapter carrinhoAdapter;
-    private List<Produto> carrinho = new ArrayList<>(); // Carrinho de compras
-    private Spinner spinnerFormaPagamento; // Spinner para forma de pagamento
-    private TextView textVazio; // TextView para mensagem de carrinho vazio
+    private List<Produto> carrinho = new ArrayList<>();
+    private Spinner spinnerFormaPagamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.carrinhoactivity);
+        setContentView(R.layout.activity_carrinho);
+
+        // Inicializando as Views
+        recyclerViewCarrinho = findViewById(R.id.recyclerViewItens);
+        spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
+
+        // Verifica se o carrinho está vazio no início
+        if (carrinho.isEmpty()) {
+            // Redireciona para a CarrinhoVazioActivity
+            Intent intent = new Intent(CarrinhoActivity.this, CarrinhoVazioActivity.class);
+            startActivity(intent);
+            finish(); // Fecha a CarrinhoActivity
+            return; // Impede que o restante do código execute
+        }
 
         // Configuração do Spinner
         configurarSpinnerFormaPagamento();
@@ -37,92 +46,54 @@ public class CarrinhoActivity extends AppCompatActivity {
         carrinhoAdapter = new CarrinhoAdapter(carrinho, new CarrinhoAdapter.OnCarrinhoClickListener() {
             @Override
             public void onAdicionarItemClick(Produto produto) {
-                // Aumenta a quantidade do produto no carrinho
                 adicionarProdutoAoCarrinho(produto);
             }
 
             @Override
             public void onRemoverItemClick(Produto produto) {
-                // Remove o produto do carrinho
                 removerProdutoDoCarrinho(produto);
             }
         });
 
         recyclerViewCarrinho.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCarrinho.setAdapter(carrinhoAdapter);
-
-        // Atualizar a visibilidade do RecyclerView dependendo se o carrinho tem itens
-        atualizarVisibilidadeCarrinho();
     }
 
-    // Método para configurar o Spinner
     private void configurarSpinnerFormaPagamento() {
-        // Lista de formas de pagamento
         List<String> formasDePagamento = new ArrayList<>();
         formasDePagamento.add("Cartão de Crédito");
         formasDePagamento.add("Cartão de Débito");
         formasDePagamento.add("Pix");
         formasDePagamento.add("Dinheiro");
 
-        // Configura o adapter do Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, formasDePagamento);
         spinnerFormaPagamento.setAdapter(adapter);
     }
 
-    // Método para adicionar um produto ao carrinho
     private void adicionarProdutoAoCarrinho(Produto produto) {
         boolean produtoEncontrado = false;
-
-        // Verifica se o produto já existe no carrinho
         for (Produto p : carrinho) {
             if (p.getNome().equals(produto.getNome())) {
-                p.setQuantidade(p.getQuantidade() + 1); // Aumenta a quantidade
+                p.setQuantidade(p.getQuantidade() + 1);
                 produtoEncontrado = true;
                 break;
             }
         }
 
-        // Se não encontrou, adiciona um novo produto
         if (!produtoEncontrado) {
             carrinho.add(produto);
         }
 
-        carrinhoAdapter.notifyDataSetChanged();  // Atualiza o adapter
-        atualizarVisibilidadeCarrinho();  // Atualiza a visibilidade do RecyclerView
+        carrinhoAdapter.notifyDataSetChanged();
     }
 
-    // Método para remover um produto do carrinho
     private void removerProdutoDoCarrinho(Produto produto) {
         if (produto.getQuantidade() > 1) {
-            produto.setQuantidade(produto.getQuantidade() - 1);  // Diminui a quantidade
+            produto.setQuantidade(produto.getQuantidade() - 1);
         } else {
-            carrinho.remove(produto);  // Remove o produto do carrinho
+            carrinho.remove(produto);
         }
 
-        carrinhoAdapter.notifyDataSetChanged();  // Atualiza o adapter
-        atualizarVisibilidadeCarrinho();  // Atualiza a visibilidade do RecyclerView
-    }
-
-    // Atualiza a visibilidade do RecyclerView dependendo se o carrinho tem itens
-    private void atualizarVisibilidadeCarrinho() {
-        if (carrinho.isEmpty()) {
-            recyclerViewCarrinho.setVisibility(View.GONE);  // Oculta o RecyclerView
-            textVazio.setVisibility(View.VISIBLE);  // Exibe o TextView "Carrinho vazio"
-        } else {
-            recyclerViewCarrinho.setVisibility(View.VISIBLE);  // Exibe o RecyclerView
-            textVazio.setVisibility(View.GONE);  // Oculta o TextView "Carrinho vazio"
-        }
-
-        // Se o carrinho não estiver vazio, atualiza o texto do RecyclerView com números
-        atualizarTextoCarrinho();
-    }
-
-    // Método para atualizar o texto do carrinho com os números dos itens
-    private void atualizarTextoCarrinho() {
-        for (int i = 0; i < carrinho.size(); i++) {
-            Produto produto = carrinho.get(i);
-            produto.setNome("Item " + (i + 1) + ": " + produto.getNome());  // Adiciona o número do item
-        }
         carrinhoAdapter.notifyDataSetChanged();
     }
 }
