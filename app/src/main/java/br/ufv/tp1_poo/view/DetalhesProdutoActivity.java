@@ -111,4 +111,5 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         String precoFormatado = String.format("%.2f", (produto.getPreco() * quantidade) / 100.0);
         botaoAdicionar.setText("Adicionar R$ " + precoFormatado);
     }
+
 }

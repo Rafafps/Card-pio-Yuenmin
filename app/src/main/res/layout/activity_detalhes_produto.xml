@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:padding="16dp"
     tools:context=".view.DetalhesProdutoActivity">
@@ -13,92 +14,118 @@
         android:orientation="vertical">
 
         <!-- Botão Voltar -->
-        <TextView
-            android:id="@+id/botaoVoltar"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Voltar"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/montserrat_semibold"
-            android:drawableStart="@drawable/voltar"
-            android:drawablePadding="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="10dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/botaoVoltar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/voltar"
+                android:contentDescription="@string/voltar"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Voltar"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_semibold"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
 
         <!-- Imagem do Produto -->
         <ImageView
             android:id="@+id/imagemProduto"
-            android:layout_marginTop="30dp"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="25dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp" />
 
         <!-- Nome do Produto -->
         <TextView
             android:id="@+id/nomeProduto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome do Produto"
+            android:text="Mix de tomate"
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat_semibold"
             android:textSize="24sp"
-            android:layout_marginBottom="8dp"
-            android:layout_gravity="center_horizontal" />
-
-        <!-- Barra Laranja -->
-        <View
-            android:layout_width="300dp"
-            android:layout_height="1dp"
-            android:background="@color/laranja"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp" />
 
         <!-- Descrição do Produto -->
         <TextView
             android:id="@+id/descricaoProduto"
-            android:layout_width="335dp"
-            android:layout_height="106dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/montserrat_light"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:paddingTop="15dp"
-            android:text="Descrição do produto aqui."
-            android:textColor="@color/cinza"
-            android:textSize="18sp" />
-
-        <!-- Observação -->
-        <LinearLayout
-            android:layout_width="335dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_horizontal">
+            android:fontFamily="@font/montserrat_light"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+            android:textColor="@color/cinza"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
 
-            <ImageView
-                android:id="@+id/icObservacao"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/obs"
-                android:layout_marginEnd="8dp" />
+        <!-- Selecione o tamanho -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selecione_o_tamanho"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginBottom="8dp" />
 
-            <TextView
-                android:id="@+id/tituloObservacao"
+        <!-- Opções de tamanho -->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/tamanho300"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alguma observação?"
+                android:text="300ml"
+                android:textSize="16sp"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:fontFamily="@font/montserrat_medium"/>
-        </LinearLayout>
+                android:fontFamily="@font/montserrat_light" />
 
-        <!-- Campo de Observação -->
+            <RadioButton
+                android:id="@+id/tamanho500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+3,50    500ml"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_light" />
+
+            <RadioButton
+                android:id="@+id/tamanho700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+5,50    700ml"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_light" />
+        </RadioGroup>
+
+        <!-- Observação -->
+        <TextView
+            android:id="@+id/tituloObservacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alguma observação?"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginTop="16dp" />
+
         <EditText
             android:id="@+id/observacaoProduto"
             android:layout_width="335dp"
@@ -111,27 +138,25 @@
             android:textSize="13sp"
             android:hint="Ex: Tirar cogumelo, molho à parte etc."
             android:fontFamily="@font/montserrat_light"
-            android:padding="12dp" />
+            android:padding="12dp"  />
 
         <!-- Quantidade e Adicionar ao Carrinho -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="81dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <!-- Botão Diminuir -->
             <TextView
                 android:id="@+id/botaoDiminuir"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/sombra_buttoncardapio"
-                android:backgroundTint="@color/laranja"
                 android:gravity="center"
-                android:text="-\n\n"
+                android:text="-"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <!-- Quantidade -->
             <TextView
@@ -139,18 +164,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:fontFamily="@font/montserrat_semibold"
                 android:text="1"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_semibold" />
 
             <!-- Botão Aumentar -->
             <TextView
                 android:id="@+id/botaoAumentar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/sombra_buttoncardapio"
-                android:backgroundTint="@color/laranja"
                 android:gravity="center"
                 android:text="+"
                 android:textColor="@color/white"
@@ -159,19 +183,17 @@
             <!-- Botão Adicionar -->
             <TextView
                 android:id="@+id/botaoAdicionar"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/sombra_buttoncardapio"
-                android:backgroundTint="@color/laranja"
-                android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center"
-                android:padding="12dp"
+                android:text="Adicionar    R$32,99"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:ellipsize="none"
-                android:singleLine="false"
-                android:scrollHorizontally="false" />
+                android:fontFamily="@font/montserrat_semibold" />
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
