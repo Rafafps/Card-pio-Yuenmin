@@ -7,8 +7,11 @@ import android.text.Spanned;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
+
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.model.Produto;
 
@@ -17,6 +20,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private ImageView imagemProduto;
     private TextView nomeProduto, descricaoProduto, quantidadeProduto, botaoVoltar, botaoAdicionar, botaoAumentar, botaoDiminuir;
     private EditText observacaoProduto;
+
 
     private Produto produto;
     private int quantidade = 1;
@@ -42,11 +46,14 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
 
         if (produto != null) {
             carregarProduto();
+        } else {
+            // Tratar caso o produto seja nulo
+            nomeProduto.setText("Produto não encontrado");
+            botaoAdicionar.setEnabled(false);
         }
 
         // Configuração inicial do botão "Diminuir"
-        botaoDiminuir.setEnabled(false);
-        botaoDiminuir.setAlpha(0.5f);
+        atualizarEstadoBotaoDiminuir();
 
         // Configurar os listeners dos botões
         botaoAumentar.setOnClickListener(v -> alterarQuantidade(1));
@@ -54,13 +61,13 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         botaoVoltar.setOnClickListener(v -> finish());
 
         botaoAdicionar.setOnClickListener(v -> {
-            // Configurar a quantidade do produto
-            //produto.setQuantidade(quantidade);
-            // Adicionar o produto ao Carrinho (estático)
-            //Carrinho.adicionaProduto(produto);
-            // Criar intent para abrir a tela de Carrinho
-            Intent intent = new Intent(DetalhesProdutoActivity.this, CarrinhoActivity.class);
-            startActivity(intent);
+            if (produto != null) {
+                // Configurar a quantidade do produto
+                produto.setQuantidade(quantidade); // Certifique-se que há o método setQuantidade no modelo Produto
+                // Criar intent para abrir a tela de Carrinho
+                Intent intent = new Intent(DetalhesProdutoActivity.this, CarrinhoActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
@@ -96,8 +103,15 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         quantidade = Math.max(1, quantidade + delta);
         quantidadeProduto.setText(String.valueOf(quantidade));
         atualizarPreco();
+        atualizarEstadoBotaoDiminuir();
+    }
 
-        // Atualizar estado do botão "Diminuir"
+    private void atualizarPreco() {
+        String precoFormatado = String.format("%.2f", (produto.getPreco() * quantidade) / 100.0);
+        botaoAdicionar.setText("Adicionar R$ " + precoFormatado);
+    }
+
+    private void atualizarEstadoBotaoDiminuir() {
         if (quantidade == 1) {
             botaoDiminuir.setEnabled(false);
             botaoDiminuir.setAlpha(0.5f);
@@ -106,10 +120,4 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
             botaoDiminuir.setAlpha(1.0f);
         }
     }
-
-    private void atualizarPreco() {
-        String precoFormatado = String.format("%.2f", (produto.getPreco() * quantidade) / 100.0);
-        botaoAdicionar.setText("Adicionar R$ " + precoFormatado);
-    }
-
 }
