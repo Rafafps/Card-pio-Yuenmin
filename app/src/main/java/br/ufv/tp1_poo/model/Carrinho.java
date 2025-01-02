@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrinho {
-    private List<Produto> listaDeProdutos;
-    public Carrinho() {
-        this.listaDeProdutos = new ArrayList<>();
-    }
+    // Lista de produtos compartilhada por toda a classe
+    private static List<Produto> listaDeProdutos = new ArrayList<>();
 
-    public boolean adicionaProduto(Produto produto) {
+    // Construtor não é mais necessário, já que a lista é estática
+    private Carrinho() {}
+
+    public static boolean adicionaProduto(Produto produto) {
         for (Produto item : listaDeProdutos) {
             if (item.getNome().equals(produto.getNome())) {
                 // Se já existir, atualiza a quantidade
-                item.setQuantidade(item.getQuantidade()+1);
+                item.setQuantidade(item.getQuantidade() + 1);
                 return true;
             }
         }
@@ -22,18 +23,19 @@ public class Carrinho {
         return true;
     }
 
-    public boolean removeProduto(Produto produto) {
+    public static boolean removeProduto(Produto produto) {
         return listaDeProdutos.remove(produto);
     }
 
-    public List<Produto> getListaDeProdutos() {
+    public static List<Produto> getListaDeProdutos() {
         return listaDeProdutos;
     }
-    public void setListaDeProdutos(List<Produto> listaDeProdutos) {
-        this.listaDeProdutos = listaDeProdutos;
+
+    public static void setListaDeProdutos(List<Produto> novaListaDeProdutos) {
+        listaDeProdutos = novaListaDeProdutos;
     }
 
-    public int calculaTotal() {
+    public static int calculaTotal() {
         int total = 0;
         for (Produto item : listaDeProdutos) {
             total += item.calculaPreco();
@@ -41,7 +43,7 @@ public class Carrinho {
         return total;
     }
 
-    public boolean estaVazio() {
+    public static boolean estaVazio() {
         return listaDeProdutos.isEmpty();
     }
 }
