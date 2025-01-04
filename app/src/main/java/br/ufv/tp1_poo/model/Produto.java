@@ -3,7 +3,7 @@ package br.ufv.tp1_poo.model;
 import org.json.JSONObject;
 import java.io.Serializable;
 
-public abstract class Produto implements Serializable {
+public class Produto implements Serializable {
     private int preco;
     private String nome;
     private int quantidade;
@@ -17,6 +17,7 @@ public abstract class Produto implements Serializable {
                    String categoria, String observacao, String tamanho) {
         this.preco = preco;
         this.nome = nome;
+
         this.quantidade = quantidade;
         this.descricao = descricao;
         this.imagem = imagem;
@@ -90,8 +91,13 @@ public abstract class Produto implements Serializable {
         this.tamanho = tamanho;
     }
 
-    // Método abstrato para ser implementado pelas subclasses
-    public abstract String getTamanhoFormatado();
+    // Método para retornar o tamanho formatado
+    public String getTamanhoFormatado() {
+        if (tamanho == null || tamanho.isEmpty()) {
+            return "Não especificado";
+        }
+        return "Tamanho: " + tamanho;
+    }
 
     // Método para calcular o preço total
     public int calculaPreco() {
@@ -109,21 +115,7 @@ public abstract class Produto implements Serializable {
             String observacao = jsonObject.optString("observacao", "Sem observação");
             String tamanho = jsonObject.optString("tamanho", "Único");
 
-            // Escolher subclasse com base na categoria
-            switch (categoria.toLowerCase()) {
-                case "vegetariano":
-                    return new Vegetariano(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
-                case "bebida":
-                    return new Bebida(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
-                case "vegano":
-                    return new Vegano(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
-                case "acréscimos":
-                    return new Acrescimos(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
-                case "congelado":
-                    return new Congelado(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
-                default:
-                    throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
-            }
+            return new Produto(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
         } catch (Exception e) {
             e.printStackTrace();
             return null; // Retorna null em caso de erro
