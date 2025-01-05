@@ -8,10 +8,23 @@ public class Bebida extends Produto {
 
     @Override
     public String getTamanhoFormatado() {
-        if (getTamanho().equals("300 ml") || getTamanho().equals("600 ml") || getTamanho().equals("1L")) {
+        if (getTamanho().equals("300ml") || getTamanho().equals("500ml") || getTamanho().equals("700ml")) {
             return getTamanho();
         } else {
             return "Tamanho inválido";
+        }
+    }
+
+    @Override
+    public int calculaPreco() {
+        return (this.getPreco() + this.getAdicionalPorTamanho()) * this.getQuantidade();
+    }
+
+    private int getAdicionalPorTamanho() {
+        switch (this.getTamanhoFormatado()) {
+            case "500ml": return 2;
+            case "700ml": return 4;
+            default: return 0;
         }
     }
 }

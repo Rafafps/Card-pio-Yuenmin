@@ -14,5 +14,17 @@ public class Vegano extends Produto {
             return "Tamanho inválido";
         }
     }
+    @Override
+    public int calculaPreco() {
+        return (this.getPreco() + this.getAdicionalPorTamanho()) * this.getQuantidade();
+    }
+
+    private int getAdicionalPorTamanho() {
+        switch (this.getTamanhoFormatado()) {
+            case "M": return 2;
+            case "G": return 4;
+            default: return 0;
+        }
+    }
 }
 
