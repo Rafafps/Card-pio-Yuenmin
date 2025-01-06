@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".view.PedidoFinalizadoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedido Finalizado"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="24sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- Nome do Restaurante -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/logoyuenminreduzida"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/montserratalternates_semibold"
+            android:text="Restaurante Yuenmin圓明"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!-- Número do Pedido -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Número do pedido:"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#xxxx"
+            android:textColor="@color/laranja"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textSize="36sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"/>
+
+        <!-- Mensagem -->
+        <TextView
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:text="Logo mais levaremos o seu pedido até a sua mesa!"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agradecemos a preferência."
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat_light"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- Botão -->
+        <TextView
+            android:id="@+id/botaoVoltarInicial"
+            android:layout_width="314dp"
+            android:layout_height="70dp"
+            android:background="@drawable/sombra_buttoncardapio"
+            android:backgroundTint="@color/laranja"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="Ir para à página Inicial"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+</ScrollView>
