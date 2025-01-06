@@ -44,7 +44,7 @@
             android:maxLines="2"
             android:text="Descrição do produto"
             android:textColor="@android:color/darker_gray"
-            android:textSize="8sp" />
+            android:textSize="16sp" />
 
         <!-- Preço do produto -->
         <TextView

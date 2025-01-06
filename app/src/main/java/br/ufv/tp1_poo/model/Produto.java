@@ -52,6 +52,11 @@ public abstract class Produto implements Serializable {
         this.observacao = observacao;
         this.tamanho = tamanho;
     }
+    public Produto(int preco, String nome, int quantidade){
+        this.preco = preco;
+        this.nome = nome;
+        this.quantidade = quantidade;
+    }
 
     public double getPreco() {
         return preco;
