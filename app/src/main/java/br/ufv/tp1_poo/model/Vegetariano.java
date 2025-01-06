@@ -1,9 +1,21 @@
 package br.ufv.tp1_poo.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Vegetariano extends Produto {
-    public Vegetariano(int preco, String nome, int quantidade, String descricao, String imagem,
-                       String categoria, String observacao, String tamanho) {
-        super(nome, preco,  quantidade, descricao, imagem, categoria, observacao, tamanho);
+
+    @JsonCreator
+    public Vegetariano(
+            @JsonProperty("preco") int preco,
+            @JsonProperty("nome") String nome,
+            @JsonProperty("quantidade") int quantidade,
+            @JsonProperty("descricao") String descricao,
+            @JsonProperty("imagem") String imagem,
+            @JsonProperty("categoria") String categoria,
+            @JsonProperty("observacao") String observacao,
+            @JsonProperty("tamanho") String tamanho) {
+        super(nome, preco, quantidade, descricao, imagem, categoria, observacao, tamanho);
     }
 
     @Override

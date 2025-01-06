@@ -3,7 +3,7 @@ package br.ufv.tp1_poo.model;
 public class Bebida extends Produto {
     public Bebida(int preco, String nome, int quantidade, String descricao, String imagem,
                   String categoria, String observacao, String tamanho) {
-        super(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+        super(nome, preco, quantidade, descricao, imagem, categoria, observacao, tamanho);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class Bebida extends Produto {
 
     @Override
     public int calculaPreco() {
-        return (this.getPreco() + this.getAdicionalPorTamanho()) * this.getQuantidade();
+        return ((int)this.getPreco() + this.getAdicionalPorTamanho()) * this.getQuantidade();
     }
 
     private int getAdicionalPorTamanho() {

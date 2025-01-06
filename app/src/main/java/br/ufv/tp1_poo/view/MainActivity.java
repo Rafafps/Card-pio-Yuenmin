@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.controller.ProdutoAdapter;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.ufv.tp1_poo.model.Produto;
 
 public class MainActivity extends AppCompatActivity {
@@ -144,19 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
     // Carrega a lista de produtos do arquivo JSON
     private List<Produto> carregarProdutos() {
-        try (InputStream inputStream = getResources().openRawResource(R.raw.produtos);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+        try (InputStream inputStream = getResources().openRawResource(R.raw.produtos)) {
+            // Cria uma instância do ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
 
-            // Lê o conteúdo do arquivo JSON
-            StringBuilder jsonBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonBuilder.append(line);
-            }
-
-            // Converte o JSON em uma lista de objetos Produto
-            Type listType = new TypeToken<List<Produto>>() {}.getType();
-            return new Gson().fromJson(jsonBuilder.toString(), listType);
+            // Converte o JSON para a lista de objetos Produto
+            return objectMapper.readValue(inputStream, new TypeReference<List<Produto>>() {});
         } catch (Exception e) {
             Log.e("MainActivity", "Erro ao carregar JSON do raw: " + e.getMessage(), e);
             return new ArrayList<>();
