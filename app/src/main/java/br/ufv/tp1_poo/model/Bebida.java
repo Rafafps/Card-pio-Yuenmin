@@ -21,6 +21,11 @@ public class Bebida extends Produto {
     }
 
     @Override
+    public String getCategoria() {
+        return "Bebida";
+    }
+
+    @Override
     public String getTamanhoFormatado() {
         if (getTamanho().equals("P") || getTamanho().equals("M") || getTamanho().equals("G")) {
             return getTamanho();
