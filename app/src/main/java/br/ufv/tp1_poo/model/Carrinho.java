@@ -42,7 +42,9 @@ public class Carrinho {
         }
         return total;
     }
-
+    public static void limpa(){
+        listaDeProdutos.clear();
+    }
     public static boolean estaVazio() {
         return listaDeProdutos.isEmpty();
     }
