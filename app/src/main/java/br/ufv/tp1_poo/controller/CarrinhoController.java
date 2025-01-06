@@ -22,14 +22,14 @@ public class CarrinhoController {
 
     public void adicionarProduto(Produto produto) {
         if (produto != null) {
-            carrinho.adicionarProduto(produto);
+            carrinho.adicionaProduto(produto);
             Toast.makeText((Context) view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
             atualizarCarrinho();
         }
     }
 
     public void removerProduto(Produto produto) {
-        if (produto != null && carrinho.removerProduto(produto)) {
+        if (produto != null && carrinho.removeProduto(produto)) {
             Toast.makeText((Context) view, "Produto removido do carrinho!", Toast.LENGTH_SHORT).show();
             atualizarCarrinho();
         } else {
@@ -38,13 +38,13 @@ public class CarrinhoController {
     }
 
     public void limparCarrinho() {
-        carrinho.limpar();
+        carrinho.limpa();
         Toast.makeText((Context) view, "Carrinho limpo!", Toast.LENGTH_SHORT).show();
         atualizarCarrinho();
     }
 
     public void calcularPrecoTotal() {
-        double precoTotal = carrinho.calcularPrecoTotal();
+        double precoTotal = carrinho.calculaTotal();
         String precoFormatado = String.format("R$ %.2f", precoTotal).replace(".", ",");
         view.atualizarPrecoTotal(precoFormatado);
     }
