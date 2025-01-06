@@ -9,13 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import br.ufv.tp1_poo.R;
@@ -24,7 +18,11 @@ import br.ufv.tp1_poo.controller.ProdutoAdapter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.ufv.tp1_poo.model.Bebida;
+import br.ufv.tp1_poo.model.Congelado;
 import br.ufv.tp1_poo.model.Produto;
+import br.ufv.tp1_poo.model.Vegano;
+import br.ufv.tp1_poo.model.Vegetariano;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,13 +123,23 @@ public class MainActivity extends AppCompatActivity {
     // Filtra os produtos com base na categoria
     private List<Produto> filtrarProdutosPorCategoria(String categoria) {
         List<Produto> produtosFiltrados = new ArrayList<>();
+
         for (Produto produto : listaCompletaProdutos) {
-            if (produto.getCategoria().equalsIgnoreCase(categoria)) {
+            if (categoria.equalsIgnoreCase("Vegetariano") && produto instanceof Vegetariano) {
+                produtosFiltrados.add(produto);
+            } else if (categoria.equalsIgnoreCase("Vegano") && produto instanceof Vegano) {
+                produtosFiltrados.add(produto);
+            } else if (categoria.equalsIgnoreCase("Congelado") && produto instanceof Congelado) {
+                produtosFiltrados.add(produto);
+            } else if (categoria.equalsIgnoreCase("Bebida") && produto instanceof Bebida) {
                 produtosFiltrados.add(produto);
             }
         }
+
         return produtosFiltrados;
     }
+
+
 
     // Redefine o estilo de todas as abas para o estado padrão.
     private void resetarEstilos() {

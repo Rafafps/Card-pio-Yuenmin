@@ -151,8 +151,8 @@ public abstract class Produto implements Serializable {
     @Override
     public String toString() {
         return "Produto{" +
-                "preco=" + preco +
-                ", nome='" + nome + '\'' +
+                "nome=" + nome +
+                ", preco='" + preco + '\'' +
                 ", quantidade=" + quantidade +
                 ", descricao='" + descricao + '\'' +
                 ", imagem='" + imagem + '\'' +

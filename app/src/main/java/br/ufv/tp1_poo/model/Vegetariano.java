@@ -1,8 +1,10 @@
 package br.ufv.tp1_poo.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vegetariano extends Produto {
 
     @JsonCreator

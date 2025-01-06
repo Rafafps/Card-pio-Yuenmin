@@ -1,7 +1,7 @@
 [
   {
-    "preco": 2850,
     "nome": "Guacamole",
+    "preco": 28.50,
     "quantidade": 1,
     "descricao": "Avocado, corn, pepperjack, crispy shallots, romaine",
     "imagem": "https://via.placeholder.com/60",
@@ -10,8 +10,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 2000,
     "nome": "Mix com queijo azul",
+    "preco": 20.00,
     "quantidade": 1,
     "descricao": "Chopped lettuce blend, blue cheese, grape tomatoes, romaine",
     "imagem": "https://via.placeholder.com/60",
@@ -20,8 +20,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 3499,
     "nome": "Fattoush",
+    "preco": 34.99,
     "quantidade": 1,
     "descricao": "Gluten-sensitive noodle stir-fry with shrimp, eggs, citrus, peanuts, green onions",
     "imagem": "https://via.placeholder.com/60",
@@ -30,8 +30,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 1599,
     "nome": "Salada com morango",
+    "preco": 15.99,
     "quantidade": 1,
     "descricao": "Baby spinach, galaxy cranberries, fresh strawberries, sliced almonds",
     "imagem": "https://via.placeholder.com/60",
@@ -40,8 +40,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 2500,
     "nome": "Hambúrguer vegano",
+    "preco": 25.00,
     "quantidade": 1,
     "descricao": "Lentil patty, vegan cheese, lettuce, tomato, and onion",
     "imagem": "https://via.placeholder.com/60",
@@ -50,8 +50,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 1800,
     "nome": "Wrap de legumes grelhados",
+    "preco": 18.00,
     "quantidade": 1,
     "descricao": "Tortilla filled with grilled vegetables and hummus",
     "imagem": "https://via.placeholder.com/60",
@@ -60,8 +60,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 2700,
     "nome": "Coxinha vegana",
+    "preco": 27.00,
     "quantidade": 1,
     "descricao": "Dough made of cassava with jackfruit filling",
     "imagem": "https://via.placeholder.com/60",
@@ -70,8 +70,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 2200,
     "nome": "Sorvete vegano",
+    "preco": 22.00,
     "quantidade": 1,
     "descricao": "Coconut milk-based chocolate ice cream",
     "imagem": "https://via.placeholder.com/60",
@@ -80,8 +80,8 @@
     "tamanho": "P"
   },
   {
-    "preco": 3200,
     "nome": "Pizza congelada vegetariana",
+    "preco": 32.00,
     "quantidade": 1,
     "descricao": "Frozen vegetarian pizza with tomato sauce, mozzarella, and vegetables",
     "imagem": "https://via.placeholder.com/60",
@@ -90,8 +90,8 @@
     "tamanho": "M"
   },
   {
-    "preco": 4500,
     "nome": "Lasagna congelada",
+    "preco": 45.00,
     "quantidade": 1,
     "descricao": "Homemade-style frozen lasagna with four cheese sauce",
     "imagem": "https://via.placeholder.com/60",
@@ -100,8 +100,8 @@
     "tamanho": "M"
   },
   {
-    "preco": 2800,
     "nome": "Risotto congelado",
+    "preco": 28.00,
     "quantidade": 1,
     "descricao": "Frozen mushroom risotto ready to heat and serve",
     "imagem": "https://via.placeholder.com/60",
@@ -110,8 +110,8 @@
     "tamanho": "M"
   },
   {
-    "preco": 3500,
     "nome": "Strogonoff congelado vegano",
+    "preco": 35.00,
     "quantidade": 1,
     "descricao": "Frozen vegan stroganoff with coconut milk and mushrooms",
     "imagem": "https://via.placeholder.com/60",
@@ -120,8 +120,8 @@
     "tamanho": "M"
   },
   {
-    "preco": 1000,
     "nome": "Refrigerante natural",
+    "preco": 10.00,
     "quantidade": 1,
     "descricao": "Sparkling water with organic fruit flavor",
     "imagem": "https://via.placeholder.com/60",
@@ -130,8 +130,8 @@
     "tamanho": "Único"
   },
   {
-    "preco": 1200,
     "nome": "Suco detox",
+    "preco": 12.00,
     "quantidade": 1,
     "descricao": "Green juice with kale, apple, ginger, and lemon",
     "imagem": "https://via.placeholder.com/60",
@@ -140,8 +140,8 @@
     "tamanho": "Único"
   },
   {
-    "preco": 1500,
     "nome": "Chá gelado artesanal",
+    "preco": 15.00,
     "quantidade": 1,
     "descricao": "Homemade iced tea with hibiscus and lemon",
     "imagem": "https://via.placeholder.com/60",
@@ -150,8 +150,8 @@
     "tamanho": "Único"
   },
   {
-    "preco": 800,
     "nome": "Água mineral",
+    "preco": 8.00,
     "quantidade": 1,
     "descricao": "500ml bottled mineral water",
     "imagem": "https://via.placeholder.com/60",
