@@ -50,7 +50,7 @@ public class CarrinhoController {
     }
 
     private void atualizarCarrinho() {
-        List<Produto> produtos = carrinho.getProdutos();
+        List<Produto> produtos = carrinho.getListaDeProdutos();
         view.atualizarListaProdutos(new ArrayList<>(produtos)); // Atualiza a lista exibida
         calcularPrecoTotal(); // Atualiza o preço total exibido
     }
