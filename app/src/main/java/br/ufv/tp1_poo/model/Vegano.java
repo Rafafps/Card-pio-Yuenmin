@@ -21,6 +21,11 @@ public class Vegano extends Produto {
     }
 
     @Override
+    public String getCategoria() {
+        return "Vegano";
+    }
+
+    @Override
     public String getTamanhoFormatado() {
         if (getTamanho().equals("P") || getTamanho().equals("M") || getTamanho().equals("G")) {
             return getTamanho();
