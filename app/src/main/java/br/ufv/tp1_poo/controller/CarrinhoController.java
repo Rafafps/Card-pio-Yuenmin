@@ -1,16 +1,57 @@
 package br.ufv.tp1_poo.controller;
+
+import android.content.Context;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufv.tp1_poo.model.Carrinho;
 import br.ufv.tp1_poo.model.Produto;
+import br.ufv.tp1_poo.view.CarrinhoActivity;
+
 public class CarrinhoController {
-    private Carrinho carrinho;
-    public CarrinhoController(Carrinho carrinho) {this.carrinho = carrinho;}
-    public void removeProdutoDoCarrinho(Produto produto) {
-        if (!carrinho.removeProduto(produto)) {
-            System.out.println("Produto não encontrado no carrinho.");
+
+    private final CarrinhoActivity view;
+    private final Carrinho carrinho;
+
+    public CarrinhoController(CarrinhoActivity view, Carrinho carrinho) {
+        this.view = view;
+        this.carrinho = carrinho;
+    }
+
+    public void adicionarProduto(Produto produto) {
+        if (produto != null) {
+            carrinho.adicionarProduto(produto);
+            Toast.makeText((Context) view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
+            atualizarCarrinho();
         }
     }
-    public void adicionaProdutoAoCarrinho(Produto produto) {carrinho.adicionaProduto(produto);}
-    public void limparCarrinho() {carrinho.getListaDeProdutos().clear();}
-    public int calculaTotal() {return carrinho.calculaTotal();}
-    public boolean estaVazio() {return carrinho.estaVazio();}
+
+    public void removerProduto(Produto produto) {
+        if (produto != null && carrinho.removerProduto(produto)) {
+            Toast.makeText((Context) view, "Produto removido do carrinho!", Toast.LENGTH_SHORT).show();
+            atualizarCarrinho();
+        } else {
+            Toast.makeText((Context) view, "Produto não encontrado no carrinho!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void limparCarrinho() {
+        carrinho.limpar();
+        Toast.makeText((Context) view, "Carrinho limpo!", Toast.LENGTH_SHORT).show();
+        atualizarCarrinho();
+    }
+
+    public void calcularPrecoTotal() {
+        double precoTotal = carrinho.calcularPrecoTotal();
+        String precoFormatado = String.format("R$ %.2f", precoTotal).replace(".", ",");
+        view.atualizarPrecoTotal(precoFormatado);
+    }
+
+    private void atualizarCarrinho() {
+        List<Produto> produtos = carrinho.getProdutos();
+        view.atualizarListaProdutos(new ArrayList<>(produtos)); // Atualiza a lista exibida
+        calcularPrecoTotal(); // Atualiza o preço total exibido
+    }
 }
