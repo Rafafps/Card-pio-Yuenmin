@@ -47,7 +47,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         // Configura os dados no ViewHolder
         holder.nomeProduto.setText(produto.getNome());
         holder.descricaoProduto.setText(produto.getDescricao());
-        holder.precoProduto.setText(String.format("R$ %.2f", produto.getPreco() / 100.0));
+        holder.precoProduto.setText(String.format("R$ %.2f", produto.getPreco()));
 
         // Carregar imagem do produto com Glide
         Glide.with(holder.itemView.getContext())

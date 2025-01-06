@@ -1,19 +1,47 @@
 package br.ufv.tp1_poo.model;
 
-import org.json.JSONObject;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.Serializable;
 
-public class Produto implements Serializable {
-    private int preco;
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "categoria"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Vegano.class, name = "Vegano"),
+        @JsonSubTypes.Type(value = Vegetariano.class, name = "Vegetariano"),
+        @JsonSubTypes.Type(value = Bebida.class, name = "Bebida"),
+        @JsonSubTypes.Type(value = Congelado.class, name = "Congelado")
+})
+public abstract class Produto implements Serializable {
+
+    @JsonProperty("preco")
+    private double preco;
+    @JsonProperty("nome")
     private String nome;
+    @JsonProperty("quantidade")
     private int quantidade;
+    @JsonProperty("descricao")
     private String descricao;
+    @JsonProperty("imagem")
     private String imagem;
+    @JsonProperty("categoria")
     private String categoria;
+    @JsonProperty("observacao")
     private String observacao;
+    @JsonProperty("tamanho")
     private String tamanho;
 
-    public Produto(int preco, String nome, int quantidade, String descricao, String imagem,
+    public Produto() {}
+
+    public Produto(String nome, double preco, int quantidade, String descricao, String imagem,
                    String categoria, String observacao, String tamanho) {
         this.preco = preco;
         this.nome = nome;
@@ -30,8 +58,7 @@ public class Produto implements Serializable {
         this.quantidade = quantidade;
     }
 
-    // Getters e Setters
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 
@@ -95,35 +122,42 @@ public class Produto implements Serializable {
         this.tamanho = tamanho;
     }
 
-    // Metodo para calcular o preço total do produto, considerando a quantidade
-    public int calculaPreco() {
-        return this.preco * this.quantidade;
+    public String getTamanhoFormatado() {
+        if (tamanho == null || tamanho.isEmpty()) {
+            return "Não especificado";
+        }
+        return "Tamanho: " + tamanho;
     }
 
-    // Metodo estático para criar um Produto a partir de um JSONObject
-    public static Produto fromJson(JSONObject jsonObject) {
-        try {
-            int preco = jsonObject.optInt("preco", 0);
-            String nome = jsonObject.optString("nome", "Sem nome");
-            int quantidade = jsonObject.optInt("quantidade", 1); // Padrão: 1
-            String descricao = jsonObject.optString("descricao", "Sem descrição");
-            String imagem = jsonObject.optString("imagem", ""); // URL ou vazio
-            String categoria = jsonObject.optString("categoria", "Sem categoria");
-            String observacao = jsonObject.optString("observacao", "Sem observação");
-            String tamanho = jsonObject.optString("tamanho", "Único");
+    public int calculaPreco() { return (int)this.preco * this.quantidade;}
 
-            return new Produto(preco, nome, quantidade, descricao, imagem, categoria, observacao, tamanho);
+    // Metodo estático para deserializar JSON em um objeto Produto
+    public static Produto fromJson(String json) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(json, Produto.class);
         } catch (Exception e) {
             e.printStackTrace();
-            return null; // Retorna null em caso de erro
+            return null;
+        }
+    }
+
+    // Metodo estático para serializar um objeto Produto em JSON
+    public static String toJson(Produto produto) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(produto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
     public String toString() {
         return "Produto{" +
-                "preco=" + preco +
-                ", nome='" + nome + '\'' +
+                "nome=" + nome +
+                ", preco='" + preco + '\'' +
                 ", quantidade=" + quantidade +
                 ", descricao='" + descricao + '\'' +
                 ", imagem='" + imagem + '\'' +
