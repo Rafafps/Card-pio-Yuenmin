@@ -157,7 +157,6 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
                 RadioButton selecionado = findViewById(checkedId);
                 produto.setTamanho(selecionado.getText().toString());
             }
-            // Lógica para adicionar o produto ao carrinho pode ser implementada aqui
         }
     }
 }
