@@ -20,7 +20,7 @@ public class CarrinhoActivity extends AppCompatActivity {
     private CarrinhoAdapter carrinhoAdapter;
     private List<Produto> carrinho = new ArrayList<>();
     private Spinner spinnerFormaPagamento;
-    private TextView textViewTotal, botaoVoltar, botaoFinalizarPedido;
+    private TextView textViewTotal, botaoVoltar;
 
     private static final double TAXA_SERVICO = 2.80; // Taxa fixa de serviço
 
@@ -34,20 +34,13 @@ public class CarrinhoActivity extends AppCompatActivity {
         spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
         textViewTotal = findViewById(R.id.textTotal);
         botaoVoltar = findViewById(R.id.botaoVoltar);
-        botaoFinalizarPedido = findViewById(R.id.botaoFinalizarPedido);
 
         // Verifica se o carrinho está vazio no início
         if (carrinho.isEmpty()) {
-            // Adiciona produtos de exemplo ao carrinho
-            adicionarProdutoExemplo();
-
-            // Redireciona para a CarrinhoVazioActivity se não houver produtos
-            if (carrinho.isEmpty()) {
-                Intent intent = new Intent(CarrinhoActivity.this, CarrinhoVazioActivity.class);
-                startActivity(intent);
-                finish(); // Fecha a CarrinhoActivity
-                return; // Impede que o restante do código execute
-            }
+            Intent intent = new Intent(CarrinhoActivity.this, CarrinhoVazioActivity.class);
+            startActivity(intent);
+            finish(); // Fecha a CarrinhoActivity
+            return; // Impede que o restante do código execute
         }
 
         // Configuração do Spinner
@@ -72,16 +65,7 @@ public class CarrinhoActivity extends AppCompatActivity {
         // Atualiza o total
         atualizarTotal();
 
-        // Lógica do botão Voltar
         botaoVoltar.setOnClickListener(v -> finish());
-
-        // Lógica do botão Finalizar Pedido
-        botaoFinalizarPedido.setOnClickListener(v -> {
-            // Redireciona para a tela de Pedido Finalizado
-            Intent intent = new Intent(CarrinhoActivity.this, PedidoFinalizadoActivity.class);
-            startActivity(intent);
-            finish(); // Finaliza a CarrinhoActivity após o redirecionamento
-        });
     }
 
     private void configurarSpinnerFormaPagamento() {
@@ -93,16 +77,6 @@ public class CarrinhoActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, formasDePagamento);
         spinnerFormaPagamento.setAdapter(adapter);
-    }
-
-    private void adicionarProdutoExemplo() {
-        // Criando dois produtos de exemplo com base no JSON fornecido
-        Produto produto1 = new Produto(2850/100, "Guacamole", 1);
-        Produto produto2 = new Produto(2000/100,"Mix com queijo azul", 1);
-
-        // Adicionando ao carrinho
-        carrinho.add(produto1);
-        carrinho.add(produto2);
     }
 
     private void adicionarProdutoAoCarrinho(Produto produto) {
@@ -155,4 +129,13 @@ public class CarrinhoActivity extends AppCompatActivity {
         textViewTotal.setText("Total: R$ " + String.format("%.2f", total));
     }
 
+    public void atualizarPrecoTotal(String precoFormatado) {
+        textViewTotal.setText("Total: R$ " + precoFormatado);
+    }
+
+    public void atualizarListaProdutos(List<Produto> produtosAtualizados) {
+        carrinho.clear(); // Limpa a lista atual
+        carrinho.addAll(produtosAtualizados); // Adiciona os produtos atualizados
+        carrinhoAdapter.notifyDataSetChanged(); // Notifica o RecyclerView para atualizar a exibição
+    }
 }
