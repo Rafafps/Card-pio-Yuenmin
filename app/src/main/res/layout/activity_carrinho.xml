@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Layout do título e botão voltar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,8 +107,6 @@
             android:textSize="16sp"
             android:paddingEnd="16dp" />
 
-
-
         <!-- Resumo de valores -->
         <TextView
             android:layout_width="match_parent"
@@ -119,97 +118,39 @@
             android:layout_marginTop="16dp"
             android:paddingStart="8dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <!-- Labels dos valores -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:text="Subtotal:"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_light"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:text="Taxa de serviço:"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_light"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:text="Total:"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Valores -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="end"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:id="@+id/textResumoTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R$xx,xx"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_light"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textTaxaServico"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R$xx,xx"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_light"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R$xx,xx"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Botão finalizar pedido -->
         <TextView
-            android:id="@+id/botaoFinalizarPedido"
-            android:layout_width="314dp"
-            android:layout_height="70dp"
-            android:background="@drawable/sombra_buttoncardapio"
-            android:backgroundTint="@color/laranja"
-            android:fontFamily="@font/montserrat_semibold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subtotal"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R$ 0.00"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Botão Finalizar Compra -->
+        <TextView
+            android:id="@+id/botaoFinalizarCompra"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Finalizar Compra"
             android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:text="Finalizar pedido"
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/white"
-            android:textSize="17sp" />
+            android:background="@color/laranja"
+            android:layout_marginTop="20dp"/>
+
     </LinearLayout>
+
 </LinearLayout>

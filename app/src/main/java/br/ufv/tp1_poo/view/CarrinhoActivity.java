@@ -1,141 +1,66 @@
-package br.ufv.tp1_poo.view;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.ufv.tp1_poo.R;
-import br.ufv.tp1_poo.controller.CarrinhoAdapter;
-import br.ufv.tp1_poo.model.Produto;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CarrinhoActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerViewCarrinho;
-    private CarrinhoAdapter carrinhoAdapter;
-    private List<Produto> carrinho = new ArrayList<>();
     private Spinner spinnerFormaPagamento;
-    private TextView textViewTotal, botaoVoltar;
-
-    private static final double TAXA_SERVICO = 2.80; // Taxa fixa de serviço
+    private RecyclerView recyclerViewItens;
+    private TextView subtotalTextView;
+    private String selectedPayment;
+    private double totalValue = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
 
-        // Inicializando as Views
-        recyclerViewCarrinho = findViewById(R.id.recyclerViewItens);
+        // Inicializando os componentes da interface
         spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
-        textViewTotal = findViewById(R.id.textTotal);
-        botaoVoltar = findViewById(R.id.botaoVoltar);
+        recyclerViewItens = findViewById(R.id.recyclerViewItens);
+        subtotalTextView = findViewById(R.id.subtotalTextView);
 
-        // Verifica se o carrinho está vazio no início
-        if (carrinho.isEmpty()) {
-            Intent intent = new Intent(CarrinhoActivity.this, CarrinhoVazioActivity.class);
-            startActivity(intent);
-            finish(); // Fecha a CarrinhoActivity
-            return; // Impede que o restante do código execute
-        }
+        // Configuração do RecyclerView
+        recyclerViewItens.setLayoutManager(new LinearLayoutManager(this));
 
-        // Configuração do Spinner
-        configurarSpinnerFormaPagamento();
+        // Criando o adapter para o Spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.formas_pagamento, // Referência ao array no strings.xml
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFormaPagamento.setAdapter(adapter);
 
-        // Inicializa o adapter
-        carrinhoAdapter = new CarrinhoAdapter(carrinho, new CarrinhoAdapter.OnCarrinhoClickListener() {
+        // Listener do Spinner
+        spinnerFormaPagamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onAdicionarItemClick(Produto produto) {
-                adicionarProdutoAoCarrinho(produto);
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedPayment = parentView.getItemAtPosition(position).toString();
+                Toast.makeText(CarrinhoActivity.this, "Forma de pagamento: " + selectedPayment, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onRemoverItemClick(Produto produto) {
-                removerProdutoDoCarrinho(produto);
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Caso nada seja selecionado
             }
         });
 
-        recyclerViewCarrinho.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewCarrinho.setAdapter(carrinhoAdapter);
-
-        // Atualiza o total
-        atualizarTotal();
-
-        botaoVoltar.setOnClickListener(v -> finish());
+        // Exibindo o subtotal de valores (esse valor pode vir de um cálculo de itens no carrinho)
+        updateSubtotal();
     }
 
-    private void configurarSpinnerFormaPagamento() {
-        List<String> formasDePagamento = new ArrayList<>();
-        formasDePagamento.add("Cartão de Crédito");
-        formasDePagamento.add("Cartão de Débito");
-        formasDePagamento.add("Pix");
-        formasDePagamento.add("Dinheiro");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, formasDePagamento);
-        spinnerFormaPagamento.setAdapter(adapter);
-    }
-
-    private void adicionarProdutoAoCarrinho(Produto produto) {
-        boolean produtoEncontrado = false;
-        for (Produto p : carrinho) {
-            if (p.getNome().equals(produto.getNome())) {
-                p.setQuantidade(p.getQuantidade() + 1);
-                produtoEncontrado = true;
-                break;
-            }
-        }
-
-        if (!produtoEncontrado) {
-            carrinho.add(produto);
-        }
-
-        // Atualizar o RecyclerView
-        carrinhoAdapter.notifyDataSetChanged();
-
-        // Atualiza o total
-        atualizarTotal();
-    }
-
-    private void removerProdutoDoCarrinho(Produto produto) {
-        if (produto.getQuantidade() > 1) {
-            produto.setQuantidade(produto.getQuantidade() - 1);
-        } else {
-            carrinho.remove(produto);
-        }
-
-        // Atualizar o RecyclerView
-        carrinhoAdapter.notifyDataSetChanged();
-
-        // Atualiza o total
-        atualizarTotal();
-    }
-
-    private void atualizarTotal() {
-        double total = 0;
-
-        // Calcula o total
-        for (Produto produto : carrinho) {
-            total += produto.getPreco() * produto.getQuantidade();
-        }
-
-        // Adiciona a taxa de serviço
-        total += TAXA_SERVICO;
-
-        // Atualiza o TextView do total
-        textViewTotal.setText("Total: R$ " + String.format("%.2f", total));
-    }
-
-    public void atualizarPrecoTotal(String precoFormatado) {
-        textViewTotal.setText("Total: R$ " + precoFormatado);
-    }
-
-    public void atualizarListaProdutos(List<Produto> produtosAtualizados) {
-        carrinho.clear(); // Limpa a lista atual
-        carrinho.addAll(produtosAtualizados); // Adiciona os produtos atualizados
-        carrinhoAdapter.notifyDataSetChanged(); // Notifica o RecyclerView para atualizar a exibição
+    // Método para atualizar o subtotal (simulando o valor)
+    private void updateSubtotal() {
+        totalValue = 100.00; // Exemplo: o total do carrinho
+        subtotalTextView.setText("R$ " + totalValue);
     }
 }

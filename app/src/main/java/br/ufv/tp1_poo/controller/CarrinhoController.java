@@ -1,11 +1,8 @@
 package br.ufv.tp1_poo.controller;
 
-import android.content.Context;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import br.ufv.tp1_poo.model.Carrinho;
 import br.ufv.tp1_poo.model.Produto;
 import br.ufv.tp1_poo.view.CarrinhoActivity;
@@ -13,45 +10,51 @@ import br.ufv.tp1_poo.view.CarrinhoActivity;
 public class CarrinhoController {
 
     private final CarrinhoActivity view;
-    private final Carrinho carrinho;
+    private final ExecutorService executorService;
 
     public CarrinhoController(CarrinhoActivity view) {
         this.view = view;
-        this.carrinho = new Carrinho(); // Cria uma nova instância de Carrinho
+        this.executorService = Executors.newSingleThreadExecutor(); // Gerenciador de threads
     }
 
+    // Adiciona um produto ao carrinho de forma assíncrona
     public void adicionarProduto(Produto produto) {
         if (produto != null) {
-            carrinho.adicionaProduto(produto);
-            Toast.makeText((Context) view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
-            atualizarCarrinho();
+            executorService.submit(() -> {
+                Carrinho.adicionaProduto(produto);
+                view.runOnUiThread(() -> {
+                    Toast.makeText(view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
+                    view.atualizarCarrinho();
+                });
+            });
         }
     }
 
+    // Remove um produto do carrinho
     public void removerProduto(Produto produto) {
-        if (produto != null && carrinho.removeProduto(produto)) {
-            Toast.makeText((Context) view, "Produto removido do carrinho!", Toast.LENGTH_SHORT).show();
-            atualizarCarrinho();
-        } else {
-            Toast.makeText((Context) view, "Produto não encontrado no carrinho!", Toast.LENGTH_SHORT).show();
+        if (produto != null) {
+            executorService.submit(() -> {
+                boolean removido = Carrinho.removeProduto(produto);
+                view.runOnUiThread(() -> {
+                    if (removido) {
+                        Toast.makeText(view, "Produto removido do carrinho!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(view, "Produto não encontrado no carrinho!", Toast.LENGTH_SHORT).show();
+                    }
+                    view.atualizarCarrinho();
+                });
+            });
         }
     }
 
-    public void limparCarrinho() {
-        carrinho.limpa();
-        Toast.makeText((Context) view, "Carrinho limpo!", Toast.LENGTH_SHORT).show();
-        atualizarCarrinho();
-    }
-
-    public void calcularPrecoTotal() {
-        int precoTotal = carrinho.calculaTotal(); // Alterado para refletir o tipo int do calculaTotal
-        String precoFormatado = String.format("R$ %d,00", precoTotal); // Formata o total como int
-        view.atualizarPrecoTotal(precoFormatado);
-    }
-
-    private void atualizarCarrinho() {
-        List<Produto> produtos = carrinho.getListaDeProdutos();
-        view.atualizarListaProdutos(new ArrayList<>(produtos));
-        calcularPrecoTotal();
+    // Finaliza o carrinho (opcional: exemplo para limpar o carrinho)
+    public void finalizarCompra() {
+        executorService.submit(() -> {
+            Carrinho.limpa();
+            view.runOnUiThread(() -> {
+                Toast.makeText(view, "Compra finalizada!", Toast.LENGTH_SHORT).show();
+                view.atualizarCarrinho();
+            });
+        });
     }
 }

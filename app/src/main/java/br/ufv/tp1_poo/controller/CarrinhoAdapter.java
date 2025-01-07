@@ -3,66 +3,53 @@ package br.ufv.tp1_poo.controller;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.model.Produto;
-
 import java.util.List;
 
 public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.CarrinhoViewHolder> {
 
-    private List<Produto> carrinho;
-    private OnCarrinhoClickListener onCarrinhoClickListener;
+    private List<Produto> produtos;
 
-    public CarrinhoAdapter(List<Produto> carrinho, OnCarrinhoClickListener onCarrinhoClickListener) {
-        this.carrinho = carrinho;
-        this.onCarrinhoClickListener = onCarrinhoClickListener;
+    public CarrinhoAdapter(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     @Override
     public CarrinhoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carrinho, parent, false);
-        return new CarrinhoViewHolder(view);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_produto_carrinho, parent, false); //não tem esse atributo, mas eu não achei o q o substitui
+        return new CarrinhoViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(CarrinhoViewHolder holder, int position) {
-        Produto produto = carrinho.get(position);
-
-        // Configurar dados do produto
+        Produto produto = produtos.get(position);
         holder.nomeProduto.setText(produto.getNome());
-        holder.precoProduto.setText("R$ " + produto.getPreco());
-        holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
-
-        holder.btnRemover.setOnClickListener(v -> onCarrinhoClickListener.onRemoverItemClick(produto));
+        holder.quantidadeProduto.setText("Quantidade: " + produto.getQuantidade());
+        holder.precoProduto.setText("R$ " + String.format("%.2f", (double) produto.calculaPreco()));
     }
 
     @Override
     public int getItemCount() {
-        return carrinho.size();
+        return produtos.size();
+    }
+
+    public void atualizarLista(List<Produto> novosProdutos) {
+        this.produtos = novosProdutos;
+        notifyDataSetChanged();
     }
 
     public static class CarrinhoViewHolder extends RecyclerView.ViewHolder {
-        TextView nomeProduto, precoProduto, quantidadeProduto;
-        ImageView imagemProduto;
-        ImageButton btnRemover;
+        public TextView nomeProduto, quantidadeProduto, precoProduto;
 
         public CarrinhoViewHolder(View itemView) {
             super(itemView);
-
             nomeProduto = itemView.findViewById(R.id.nomeProduto);
-            precoProduto = itemView.findViewById(R.id.precoProduto);
             quantidadeProduto = itemView.findViewById(R.id.quantidadeProduto);
-            imagemProduto = itemView.findViewById(R.id.imagemProduto);
-            btnRemover = itemView.findViewById(R.id.btnRemoverProduto);
+            precoProduto = itemView.findViewById(R.id.precoProduto);
         }
-    }
-
-    public interface OnCarrinhoClickListener {
-        void onAdicionarItemClick(Produto produto);
-        void onRemoverItemClick(Produto produto);
     }
 }

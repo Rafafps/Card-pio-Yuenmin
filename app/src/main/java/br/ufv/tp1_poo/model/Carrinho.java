@@ -1,51 +1,62 @@
 package br.ufv.tp1_poo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Carrinho {
-    // Lista de produtos específica para cada instância de Carrinho
-    private final List<Produto> listaDeProdutos;
+    // Lista de produtos compartilhada por toda a classe
+    @JsonProperty("listaDeProdutos") // Para serializar e deserializar corretamente
+    private static List<Produto> listaDeProdutos = new ArrayList<>();
 
-    // Construtor para inicializar a lista
-    public Carrinho() {
-        this.listaDeProdutos = new ArrayList<>();
-    }
+    // Construtor não é necessário porque a lista é estática
+    public Carrinho() {}
 
-    public boolean adicionaProduto(Produto produto) {
+    public static boolean adicionaProduto(Produto produto) {
+        if (produto == null) return false;
+
         for (Produto item : listaDeProdutos) {
             if (item.getNome().equals(produto.getNome())) {
                 // Se já existir, atualiza a quantidade
-                item.setQuantidade(item.getQuantidade() + 1);
+                item.setQuantidade(item.getQuantidade() + produto.getQuantidade());
                 return true;
             }
         }
-        // Se não existir, cria um novo item e adiciona
+        // Se não existir, adiciona um novo item
         listaDeProdutos.add(produto);
         return true;
     }
 
-    public boolean removeProduto(Produto produto) {
-        return listaDeProdutos.remove(produto);
+    public static boolean removeProduto(Produto produto) {
+        return listaDeProdutos.removeIf(item -> item.getNome().equals(produto.getNome()));
     }
 
-    public List<Produto> getListaDeProdutos() {
-        return new ArrayList<>(listaDeProdutos); // Retorna uma cópia para evitar modificações externas
+    public static List<Produto> getListaDeProdutos() {
+        return listaDeProdutos;
     }
 
-    public int calculaTotal() {
-        int total = 0;
+    public static void setListaDeProdutos(List<Produto> novaListaDeProdutos) {
+        if (novaListaDeProdutos != null) {
+            listaDeProdutos = novaListaDeProdutos;
+        }
+    }
+
+    @JsonIgnore // Ignora na serialização, pois pode ser calculado
+    public static double calculaTotal() {
+        double total = 0;
         for (Produto item : listaDeProdutos) {
-            total += item.calculaPreco();
+            total += item.calculaPreco() * item.getQuantidade();
         }
         return total;
     }
 
-    public void limpa() {
+    public static void limpa() {
         listaDeProdutos.clear();
     }
 
-    public boolean estaVazio() {
+    public static boolean estaVazio() {
         return listaDeProdutos.isEmpty();
     }
 }
