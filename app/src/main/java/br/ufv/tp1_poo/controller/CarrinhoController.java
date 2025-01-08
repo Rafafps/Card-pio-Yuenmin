@@ -23,8 +23,10 @@ public class CarrinhoController {
             executorService.submit(() -> {
                 Carrinho.adicionaProduto(produto);
                 view.runOnUiThread(() -> {
-                    Toast.makeText(view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
-                    view.atualizarCarrinho();
+                    if (view != null) {
+                        Toast.makeText(view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
+                        view.atualizarCarrinho();
+                    }
                 });
             });
         }
@@ -36,12 +38,14 @@ public class CarrinhoController {
             executorService.submit(() -> {
                 boolean removido = Carrinho.removeProduto(produto);
                 view.runOnUiThread(() -> {
-                    if (removido) {
-                        Toast.makeText(view, "Produto removido do carrinho!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(view, "Produto não encontrado no carrinho!", Toast.LENGTH_SHORT).show();
+                    if (view != null) {
+                        if (removido) {
+                            Toast.makeText(view, "Produto removido do carrinho!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(view, "Produto não encontrado no carrinho!", Toast.LENGTH_SHORT).show();
+                        }
+                        view.atualizarCarrinho();
                     }
-                    view.atualizarCarrinho();
                 });
             });
         }
@@ -52,8 +56,10 @@ public class CarrinhoController {
         executorService.submit(() -> {
             Carrinho.limpa();
             view.runOnUiThread(() -> {
-                Toast.makeText(view, "Compra finalizada!", Toast.LENGTH_SHORT).show();
-                view.atualizarCarrinho();
+                if (view != null) {
+                    Toast.makeText(view, "Compra finalizada!", Toast.LENGTH_SHORT).show();
+                    view.atualizarCarrinho();
+                }
             });
         });
     }

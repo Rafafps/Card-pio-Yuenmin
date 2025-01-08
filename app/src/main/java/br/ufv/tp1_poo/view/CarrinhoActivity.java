@@ -1,3 +1,5 @@
+package br.ufv.tp1_poo.view;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,13 +56,11 @@ public class CarrinhoActivity extends AppCompatActivity {
             }
         });
 
-        // Exibindo o subtotal de valores (esse valor pode vir de um cálculo de itens no carrinho)
         updateSubtotal();
     }
 
-    // Método para atualizar o subtotal (simulando o valor)
     private void updateSubtotal() {
-        totalValue = 100.00; // Exemplo: o total do carrinho
+        totalValue = 100.00;
         subtotalTextView.setText("R$ " + totalValue);
     }
 }
