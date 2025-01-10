@@ -97,7 +97,7 @@
 
         <Spinner
             android:id="@+id/spinnerFormaPagamento"
-            android:layout_width="277dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/caixa_suspensa"
             android:drawableRight="@drawable/seta_baixo"
@@ -105,7 +105,9 @@
             android:padding="12dp"
             android:paddingStart="8dp"
             android:textSize="16sp"
-            android:paddingEnd="16dp" />
+            android:paddingEnd="16dp"
+            android:minHeight="48dp"
+            android:layout_marginTop="10dp" />
 
         <!-- Resumo de valores -->
         <TextView
@@ -118,7 +120,9 @@
             android:layout_marginTop="16dp"
             android:paddingStart="8dp"/>
 
+        <!-- Subtotal -->
         <TextView
+            android:id="@+id/subtotalLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Subtotal"
@@ -129,6 +133,7 @@
             android:layout_marginTop="10dp"/>
 
         <TextView
+            android:id="@+id/subtotalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="R$ 0.00"

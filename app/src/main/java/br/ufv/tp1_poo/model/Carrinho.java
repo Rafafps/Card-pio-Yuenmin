@@ -1,8 +1,7 @@
 package br.ufv.tp1_poo.model;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,10 +58,5 @@ public class Carrinho {
 
     public static boolean estaVazio() {
         return listaDeProdutos.isEmpty();
-    }
-
-    // Metodo para obter os produtos (já existe getListaDeProdutos, mas o nome foi alterado conforme sua solicitação)
-    public static List<Produto> getProdutos() {
-        return listaDeProdutos;
     }
 }
