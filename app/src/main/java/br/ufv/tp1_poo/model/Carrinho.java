@@ -43,7 +43,7 @@ public class Carrinho {
         }
     }
 
-    @JsonIgnore // Ignora na serialização, pois pode ser calculado
+    @JsonIgnore
     public static double calculaTotal() {
         double total = 0;
         for (Produto item : listaDeProdutos) {
@@ -58,5 +58,10 @@ public class Carrinho {
 
     public static boolean estaVazio() {
         return listaDeProdutos.isEmpty();
+    }
+
+    // Metodo para obter os produtos (já existe getListaDeProdutos, mas o nome foi alterado conforme sua solicitação)
+    public static List<Produto> getProdutos() {
+        return listaDeProdutos;
     }
 }

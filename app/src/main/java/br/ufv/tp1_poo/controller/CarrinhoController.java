@@ -17,20 +17,20 @@ public class CarrinhoController {
         this.executorService = Executors.newSingleThreadExecutor(); // Gerenciador de threads
     }
 
-    // Adiciona um produto ao carrinho de forma assíncrona
+    // Metodo adicionarProduto
     public void adicionarProduto(Produto produto) {
         if (produto != null) {
             executorService.submit(() -> {
                 Carrinho.adicionaProduto(produto);
                 view.runOnUiThread(() -> {
                     Toast.makeText(view, "Produto adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
-                    view.atualizarCarrinho();
+                    view.atualizarCarrinho(Carrinho.getProdutos()); // Passando a lista de produtos
                 });
             });
         }
     }
 
-    // Remove um produto do carrinho
+    // Metodo removerProduto
     public void removerProduto(Produto produto) {
         if (produto != null) {
             executorService.submit(() -> {
@@ -41,19 +41,19 @@ public class CarrinhoController {
                     } else {
                         Toast.makeText(view, "Produto não encontrado no carrinho!", Toast.LENGTH_SHORT).show();
                     }
-                    view.atualizarCarrinho();
+                    view.atualizarCarrinho(Carrinho.getProdutos()); // Passando a lista de produtos
                 });
             });
         }
     }
 
-    // Finaliza o carrinho (opcional: exemplo para limpar o carrinho)
+    // Metodo finalizarCompra
     public void finalizarCompra() {
         executorService.submit(() -> {
             Carrinho.limpa();
             view.runOnUiThread(() -> {
                 Toast.makeText(view, "Compra finalizada!", Toast.LENGTH_SHORT).show();
-                view.atualizarCarrinho();
+                view.atualizarCarrinho(Carrinho.getProdutos()); // Passando a lista de produtos
             });
         });
     }

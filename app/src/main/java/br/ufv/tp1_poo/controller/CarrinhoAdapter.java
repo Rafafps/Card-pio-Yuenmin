@@ -20,7 +20,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Carrin
     @Override
     public CarrinhoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_produto_carrinho, parent, false); //não tem esse atributo, mas eu não achei o q o substitui
+                .inflate(R.layout.item_produto, parent, false); //não tem esse atributo, mas eu não achei o q o substitui
         return new CarrinhoViewHolder(itemView);
     }
 
