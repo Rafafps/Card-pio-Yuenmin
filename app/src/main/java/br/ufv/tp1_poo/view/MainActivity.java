@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Configurar clique na imagem do carrinho
         ImageView imagemCarrinho = findViewById(R.id.carrinho);
         imagemCarrinho.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, CarrinhoVazioActivity.class);
+            Intent intent = new Intent(MainActivity.this, CarrinhoActivity.class);
             startActivity(intent);
         });
     }
