@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.controller.CarrinhoController;
-import br.ufv.tp1_poo.controller.CarrinhoAdapter;
 import br.ufv.tp1_poo.model.Carrinho;
 import br.ufv.tp1_poo.model.Produto;
 
@@ -23,7 +22,6 @@ public class CarrinhoActivity extends AppCompatActivity {
     public RecyclerView recyclerViewItens;
     private TextView subtotalTextView;
     private String selectedPayment;
-    private double totalValue = 0.0;
     private CarrinhoController controller;
 
     @Override
@@ -31,24 +29,23 @@ public class CarrinhoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
 
-        // Inicializando os componentes da interface
+        // Inicializa os componentes
         spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
         recyclerViewItens = findViewById(R.id.recyclerViewItens);
         subtotalTextView = findViewById(R.id.subtotalText);
 
-        // Configuração do RecyclerView
+        // Configura o RecyclerView
         recyclerViewItens.setLayoutManager(new LinearLayoutManager(this));
 
-        // Criando o adapter para o Spinner
+        // Configura o Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.formas_pagamento, // Referência ao array no strings.xml
+                R.array.formas_pagamento,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFormaPagamento.setAdapter(adapter);
 
-        // Listener do Spinner
         spinnerFormaPagamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -58,34 +55,22 @@ public class CarrinhoActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Caso nada seja selecionado
             }
         });
 
-        // Inicia o controller
         controller = new CarrinhoController(this);
-
-        // Exibindo o subtotal de valores (esse valor pode vir de um cálculo de itens no carrinho)
         updateSubtotal();
     }
 
-    // Método para atualizar o subtotal com base nos itens do carrinho
-    private void updateSubtotal() {
-        totalValue = 0.0;  // Zera o valor total
-
-        // Itera sobre todos os produtos do carrinho
-        List<Produto> produtos = Carrinho.getListaDeProdutos(); // Obtém a lista de produtos do carrinho
-
-        // Calcula o total com base nos produtos e suas quantidades
+    public void updateSubtotal() {
+        double totalValue = 0.0;
+        List<Produto> produtos = Carrinho.getListaDeProdutos();
         for (Produto produto : produtos) {
-            totalValue += produto.calculaPreco() * produto.getQuantidade();  // Calcula o preço total de cada item
+            totalValue += produto.calculaPreco() * produto.getQuantidade();
         }
-
-        // Atualiza o texto do subtotal
-        subtotalTextView.setText("R$ " + String.format("%.2f", totalValue));  // Exibe o total com 2 casas decimais
+        subtotalTextView.setText("R$ " + String.format("%.2f", totalValue));
     }
 
-    // Método para atualizar a tela do carrinho com a lista de produtos
     public void atualizarCarrinho(List<Produto> itensSelecionados) {
         if (itensSelecionados == null || itensSelecionados.isEmpty()) {
             subtotalTextView.setText("R$ 0,00");
@@ -93,11 +78,7 @@ public class CarrinhoActivity extends AppCompatActivity {
             Toast.makeText(this, "Carrinho vazio!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // Atualiza o RecyclerView via o Controller
         controller.atualizarAdapter(itensSelecionados);
-
-        // Atualiza o subtotal
         updateSubtotal();
     }
 }

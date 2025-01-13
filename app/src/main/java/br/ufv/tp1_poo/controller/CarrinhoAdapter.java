@@ -3,48 +3,73 @@ package br.ufv.tp1_poo.controller;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.model.Produto;
 
-public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.CarrinhoViewHolder> {
+public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHolder> {
 
-    private final List<Produto> produtos;
+    private final List<Produto> listaProdutos;
+    private final OnItemRemovedListener onItemRemovedListener;
 
-    public CarrinhoAdapter(List<Produto> produtos) {
-        this.produtos = produtos;
+    public interface OnItemRemovedListener {
+        void onItemRemoved(int position);
+    }
+
+    public CarrinhoAdapter(List<Produto> listaProdutos, OnItemRemovedListener listener) {
+        this.listaProdutos = listaProdutos;
+        this.onItemRemovedListener = listener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carrinho, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public CarrinhoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_produto, parent, false);
-        return new CarrinhoViewHolder(itemView);
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Produto produto = listaProdutos.get(position);
 
-    @Override
-    public void onBindViewHolder(CarrinhoViewHolder holder, int position) {
-        Produto produto = produtos.get(position);
+        // Configura os dados do produto
         holder.nomeProduto.setText(produto.getNome());
-        holder.quantidade.setText("Qtd: " + produto.getQuantidade());
-        holder.preco.setText("Preço: R$ " + String.format("%.2f", produto.calculaPreco()));
+        holder.precoProduto.setText(String.format("R$ %.2f", produto.calculaPreco()));
+        holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
+
+        // Exemplo de como carregar a imagem (se aplicável)
+        holder.imagemProduto.setImageResource(R.drawable.imagem_carregando);
+
+        // Botão de remover produto
+        holder.btnRemoverProduto.setOnClickListener(v -> {
+            if (onItemRemovedListener != null) {
+                onItemRemovedListener.onItemRemoved(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return produtos.size();
+        return listaProdutos.size();
     }
 
-    public static class CarrinhoViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nomeProduto, precoProduto, quantidadeProduto;
+        ImageView imagemProduto;
+        ImageButton btnRemoverProduto;
 
-        TextView nomeProduto, quantidade, preco;
-
-        public CarrinhoViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nomeProduto = itemView.findViewById(R.id.nomeProduto);
-            quantidade = itemView.findViewById(R.id.quantidadeProduto);
-            preco = itemView.findViewById(R.id.precoProduto);
+            precoProduto = itemView.findViewById(R.id.precoProduto);
+            quantidadeProduto = itemView.findViewById(R.id.quantidadeProduto);
+            imagemProduto = itemView.findViewById(R.id.imagemProduto);
+            btnRemoverProduto = itemView.findViewById(R.id.btnRemoverProduto);
         }
     }
 }
