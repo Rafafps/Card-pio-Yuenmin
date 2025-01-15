@@ -1,4 +1,39 @@
 <resources>
+    <!-- Nome do aplicativo -->
     <string name="app_name">YuenMin圓明</string>
+
+    <!-- Texto do botão para adicionar um item com preço formatado -->
     <string name="botao_adicionar">Adicionar <b><big>R$ %s</big></b></string>
+
+    <!-- Texto do botão para limpar o carrinho -->
+    <string name="botao_limpar_carrinho">Limpar Carrinho</string>
+
+    <!-- Texto para a tela de carrinho -->
+    <string name="titulo_carrinho">Carrinho</string>
+
+    <!-- Texto para a tela de forma de pagamento -->
+    <string name="forma_pagamento">Forma de Pagamento</string>
+
+    <!-- Texto para resumo de valores -->
+    <string name="resumo_valores">Resumo de Valores</string>
+
+    <!-- Texto para o botão finalizar compra -->
+    <string name="botao_finalizar_compra">Finalizar Compra</string>
+
+    <!-- Texto de quantidade -->
+    <string name="quantidade_produto">Quantidade: %d</string>
+
+    <!-- Texto para a exibição de preço -->
+    <string name="preco_produto">R$ %s</string>
+
+    <!-- Texto de título para forma de pagamento -->
+    <string name="forma_pagamento_titulo">Escolha a Forma de Pagamento</string>
+
+    <!-- Array de formas de pagamento -->
+    <string-array name="formas_pagamento">
+        <item>Cartão de Crédito</item>
+        <item>Cartão de Débito</item>
+        <item>Dinheiro</item>
+        <item>Pix</item>
+    </string-array>
 </resources>

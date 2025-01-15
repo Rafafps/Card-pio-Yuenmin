@@ -1,16 +1,15 @@
 package br.ufv.tp1_poo.view;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import br.ufv.tp1_poo.R;
+import br.ufv.tp1_poo.controller.CarrinhoController;
 import br.ufv.tp1_poo.controller.ProdutoController;
 import br.ufv.tp1_poo.model.Produto;
 
@@ -22,8 +21,9 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private RadioGroup radioGroupTamanhos;
 
     private ProdutoController produtoController;
+    private CarrinhoController carrinhoController;
+    private CarrinhoActivity carrinhoActivity;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +52,21 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
             botaoAdicionar.setEnabled(false);
         }
 
+        carrinhoController = new CarrinhoController(this);
+
         atualizarEstadoBotaoDiminuir();
 
-        // Configurar os listeners dos botões
         botaoAumentar.setOnClickListener(v -> produtoController.alterarQuantidade(1));
         botaoDiminuir.setOnClickListener(v -> produtoController.alterarQuantidade(-1));
         botaoVoltar.setOnClickListener(v -> finish());
-        botaoAdicionar.setOnClickListener(v -> produtoController.adicionarProdutoCarrinho());
+
+        // Pass the current activity (CarrinhoActivity.this) to adicionarProduto
+        botaoAdicionar.setOnClickListener(v -> {
+            carrinhoController.adicionarProduto(produto, null); // Passe null
+            Intent intent = new Intent(DetalhesProdutoActivity.this, CarrinhoActivity.class);
+            startActivity(intent);
+        });
+
         radioGroupTamanhos.setOnCheckedChangeListener((group, checkedId) -> produtoController.atualizarValorAdicional());
     }
 

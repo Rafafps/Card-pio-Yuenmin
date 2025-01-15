@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import br.ufv.tp1_poo.R;
 
 public class CarrinhoVazioActivity extends AppCompatActivity {
-
     private TextView botaoVoltar;
     private TextView botaoVoltarInicial;
 
@@ -19,8 +18,7 @@ public class CarrinhoVazioActivity extends AppCompatActivity {
         botaoVoltar = findViewById(R.id.botaoVoltar);
         botaoVoltarInicial = findViewById(R.id.botaoVoltarInicial);
 
-        // Ação dos buttons
-        botaoVoltar.setOnClickListener(v -> finish()); // Finaliza a atividade atual
+        botaoVoltar.setOnClickListener(v -> finish());
         botaoVoltarInicial.setOnClickListener(v -> {
             Intent intent = new Intent(CarrinhoVazioActivity.this, MainActivity.class);
             startActivity(intent);

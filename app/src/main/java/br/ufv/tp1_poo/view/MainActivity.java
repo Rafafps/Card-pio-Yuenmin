@@ -13,24 +13,35 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import br.ufv.tp1_poo.R;
+import br.ufv.tp1_poo.controller.CarrinhoController;
 import br.ufv.tp1_poo.controller.ProdutoAdapter;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.ufv.tp1_poo.model.Bebida;
+import br.ufv.tp1_poo.model.Carrinho;
 import br.ufv.tp1_poo.model.Congelado;
 import br.ufv.tp1_poo.model.Produto;
 import br.ufv.tp1_poo.model.Vegano;
 import br.ufv.tp1_poo.model.Vegetariano;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+import br.ufv.tp1_poo.R;
+import br.ufv.tp1_poo.controller.CarrinhoController;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewProdutos;
 
+    private CarrinhoController carrinhoController;
+
     // Elementos de UI para as abas
     private TextView tabVegetariano, tabVegano, tabCongelado, tabBebida;
     private View barraVegetariano, barraVegano, barraCongelado, barraBebida;
+
+    private static Carrinho carrinhos;
 
     // Lista completa de produtos
     private List<Produto> listaCompletaProdutos;
@@ -40,17 +51,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        carrinhoController = new CarrinhoController(this);
+
         // Configuração inicial
+
+        configurarCliqueCarrinho();
         configurarRecyclerView();
         inicializarTabs();
         configurarTabs();
 
-        // Configurar clique na imagem do carrinho
-        ImageView imagemCarrinho = findViewById(R.id.carrinho);
-        imagemCarrinho.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, CarrinhoVazioActivity.class);
-            startActivity(intent);
-        });
     }
 
     // Configura o RecyclerView para exibir a lista de produtos.
@@ -166,5 +175,17 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "Erro ao carregar JSON do raw: " + e.getMessage(), e);
             return new ArrayList<>();
         }
+    }
+    private void configurarCliqueCarrinho() {
+        ImageView imagemCarrinho = findViewById(R.id.carrinho);
+        imagemCarrinho.setOnClickListener(v -> carrinhoController.verificarEstadoCarrinho(this));
+    }
+    public void abrirCarrinhoVazio() {
+        Intent intent = new Intent(MainActivity.this, CarrinhoVazioActivity.class);
+        startActivity(intent);
+    }
+    public void abrirCarrinhoCheio() {
+        Intent intent = new Intent(MainActivity.this, CarrinhoActivity.class);
+        startActivity(intent);
     }
 }

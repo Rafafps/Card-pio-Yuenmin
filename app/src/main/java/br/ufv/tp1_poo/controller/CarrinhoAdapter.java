@@ -6,63 +6,77 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.model.Produto;
 
-import java.util.List;
-
-public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.CarrinhoViewHolder> {
-
-    private List<Produto> carrinho;
-    private OnCarrinhoClickListener onCarrinhoClickListener;
-
-    public CarrinhoAdapter(List<Produto> carrinho, OnCarrinhoClickListener onCarrinhoClickListener) {
-        this.carrinho = carrinho;
-        this.onCarrinhoClickListener = onCarrinhoClickListener;
+public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHolder> {
+    public interface CarrinhoListener {
+        void atualizarCarrinho(List<Produto> produtos);
+        void updateSubtotal();
+        void abrirCarrinhoVazio();
+        void abrirCarrinhoCheio();
     }
 
+    private final List<Produto> listaProdutos;
+    private final OnItemRemovedListener onItemRemovedListener;
+    private static Produto produto;
+
+    public interface OnItemRemovedListener {
+        void onItemRemoved(int position);
+    }
+
+    public CarrinhoAdapter(List<Produto> listaProdutos, OnItemRemovedListener listener) {
+        this.listaProdutos = listaProdutos;
+        this.onItemRemovedListener = listener;
+    }
+
+    @NonNull
     @Override
-    public CarrinhoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carrinho, parent, false);
-        return new CarrinhoViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CarrinhoViewHolder holder, int position) {
-        Produto produto = carrinho.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Produto produto = listaProdutos.get(position);
 
-        // Configurar dados do produto
+        // Configura os dados do produto
         holder.nomeProduto.setText(produto.getNome());
-        holder.precoProduto.setText("R$ " + produto.getPreco());
+        holder.precoProduto.setText(String.format("R$ %.2f", produto.calculaPreco() instanceof Float ? produto.calculaPreco() : (float) produto.calculaPreco()));
         holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
 
-        holder.btnRemover.setOnClickListener(v -> onCarrinhoClickListener.onRemoverItemClick(produto));
+        // Exemplo de como carregar a imagem (se aplicável)
+        holder.imagemProduto.setImageResource(R.drawable.imagem_carregando);
+
+        // Botão de remover produto
+        holder.btnRemoverProduto.setOnClickListener(v -> {
+            if (onItemRemovedListener != null) {
+                onItemRemovedListener.onItemRemoved(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return carrinho.size();
+        return listaProdutos.size();
     }
 
-    public static class CarrinhoViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nomeProduto, precoProduto, quantidadeProduto;
         ImageView imagemProduto;
-        ImageButton btnRemover;
+        ImageButton btnRemoverProduto;
 
-        public CarrinhoViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             nomeProduto = itemView.findViewById(R.id.nomeProduto);
             precoProduto = itemView.findViewById(R.id.precoProduto);
             quantidadeProduto = itemView.findViewById(R.id.quantidadeProduto);
             imagemProduto = itemView.findViewById(R.id.imagemProduto);
-            btnRemover = itemView.findViewById(R.id.btnRemoverProduto);
+            btnRemoverProduto = itemView.findViewById(R.id.btnRemoverProduto);
         }
-    }
-
-    public interface OnCarrinhoClickListener {
-        void onAdicionarItemClick(Produto produto);
-        void onRemoverItemClick(Produto produto);
     }
 }
