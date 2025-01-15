@@ -1,6 +1,7 @@
 package br.ufv.tp1_poo.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ public class CarrinhoActivity extends AppCompatActivity {
     private TextView subtotalTextView;
     private String selectedPayment;
     private CarrinhoController carrinhoController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,20 @@ public class CarrinhoActivity extends AppCompatActivity {
         });
 
         atualizarCarrinho(Carrinho.getListaDeProdutos());
+        //Volta
+        TextView botaoVoltar = findViewById(R.id.botaoVoltar);
+        botaoVoltar.setOnClickListener(view -> finish());
+
+        //Finaliza
+        TextView botaoFinalizarCompra = findViewById(R.id.botaoFinalizarCompra);
+
+        botaoFinalizarCompra.setOnClickListener(v -> {
+            // Iniciar a nova atividade
+            Intent intent = new Intent(CarrinhoActivity.this, PedidoFinalizadoActivity.class);
+            startActivity(intent);
+            Toast.makeText(CarrinhoActivity.this, "Compra finalizada!", Toast.LENGTH_SHORT).show();
+            carrinhoController.finalizarCompra(this);
+        });
     }
     @SuppressLint("DefaultLocale")
     public void updateSubtotal() {
