@@ -35,8 +35,8 @@ public class Carrinho {
         listaDeProdutos = novaListaDeProdutos;
     }
 
-    public static int calculaTotal() {
-        int total = 0;
+    public static float calculaTotal() {
+        float total = 0;
         for (Produto item : listaDeProdutos) {
             total += item.calculaPreco();
         }

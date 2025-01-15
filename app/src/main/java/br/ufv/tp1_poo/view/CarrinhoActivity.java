@@ -1,5 +1,6 @@
 package br.ufv.tp1_poo.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,7 @@ public class CarrinhoActivity extends AppCompatActivity {
 
         atualizarCarrinho(Carrinho.getListaDeProdutos());
     }
+    @SuppressLint("DefaultLocale")
     public void updateSubtotal() {
         subtotalTextView.setText("R$ " + String.format("%.2f", Carrinho.calculaTotal())); // Usando Carrinho.calculaTotal()
     }
