@@ -21,7 +21,6 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = Congelado.class, name = "Congelado")
 })
 public abstract class Produto implements Serializable {
-
     @JsonProperty("preco")
     private double preco;
     @JsonProperty("nome")
@@ -39,7 +38,6 @@ public abstract class Produto implements Serializable {
     @JsonProperty("tamanho")
     private String tamanho;
 
-    public Produto() {}
 
     public Produto(String nome, double preco, int quantidade, String descricao, String imagem,
                    String categoria, String observacao, String tamanho) {
@@ -129,8 +127,9 @@ public abstract class Produto implements Serializable {
         return "Tamanho: " + tamanho;
     }
 
-    public int calculaPreco() { return (int)this.preco * this.quantidade;}
-
+    public Float calculaPreco() {
+        return (float)this.preco * this.quantidade;
+    }
     // Metodo estático para deserializar JSON em um objeto Produto
     public static Produto fromJson(String json) {
         try {

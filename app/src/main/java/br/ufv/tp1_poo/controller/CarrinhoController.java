@@ -1,66 +1,76 @@
 package br.ufv.tp1_poo.controller;
 
+import android.content.Context;
 import android.widget.Toast;
 import java.util.List;
 import br.ufv.tp1_poo.model.Carrinho;
 import br.ufv.tp1_poo.model.Produto;
 import br.ufv.tp1_poo.view.CarrinhoActivity;
+import br.ufv.tp1_poo.view.MainActivity;
 
 public class CarrinhoController {
 
-    private final CarrinhoActivity view;
+    private final Context context;
     private CarrinhoAdapter adapter;
 
-    public CarrinhoController(CarrinhoActivity view) {
-        this.view = view;
+    public CarrinhoController(Context context) {
+        this.context = context;
     }
 
-    // Método para atualizar o adapter do RecyclerView
-    public void atualizarAdapter(List<Produto> itensSelecionados) {
-        if (adapter == null) {
-            adapter = new CarrinhoAdapter(itensSelecionados, position -> {
-                // Remove o item selecionado
-                Produto produtoRemovido = itensSelecionados.get(position);
-                itensSelecionados.remove(position);
+    // ... (outros métodos: atualizarAdapter, adicionarProduto, removerProduto, finalizarCompra)
 
-                // Atualiza a interface
-                adapter.notifyItemRemoved(position);
-                view.updateSubtotal();
-
-                // Mensagem ao remover produto
-                Toast.makeText(view, produtoRemovido.getNome() + " removido do carrinho!", Toast.LENGTH_SHORT).show();
-            });
-
-            // Define o adapter no RecyclerView
-            view.recyclerViewItens.setAdapter(adapter);
+    public void verificarEstadoCarrinho(MainActivity mainActivity) {
+        if (Carrinho.estaVazio()) { // Usando o método estaVazio()
+            mainActivity.abrirCarrinhoVazio();
         } else {
-            // Atualiza os dados no adapter existente
-            adapter.notifyDataSetChanged();
+            mainActivity.abrirCarrinhoCheio();
         }
     }
 
-    // Adiciona produto ao carrinho
-    public void adicionarProduto(Produto produto) {
+    public void adicionarProduto(Produto produto, CarrinhoActivity carrinhoActivity) {
         if (produto != null) {
             Carrinho.adicionaProduto(produto);
-            view.atualizarCarrinho(Carrinho.getListaDeProdutos());
+            atualizarCarrinhoNaActivity(carrinhoActivity);
         }
     }
 
-    // Remove produto do carrinho
-    public void removerProduto(Produto produto) {
+    public void removerProduto(Produto produto, CarrinhoActivity carrinhoActivity) {
         if (produto != null) {
-            boolean removido = Carrinho.removeProduto(produto);
-            view.atualizarCarrinho(Carrinho.getListaDeProdutos());
-            String mensagem = removido ? "Produto removido do carrinho!" : "Produto não encontrado no carrinho!";
-            Toast.makeText(view, mensagem, Toast.LENGTH_SHORT).show();
+            Carrinho.removeProduto(produto);
+            atualizarCarrinhoNaActivity(carrinhoActivity);
+            Toast.makeText(context, produto.getNome() + " removido do carrinho!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Finaliza a compra
-    public void finalizarCompra() {
+    public void finalizarCompra(CarrinhoActivity carrinhoActivity) {
         Carrinho.limpa();
-        view.atualizarCarrinho(Carrinho.getListaDeProdutos());
-        Toast.makeText(view, "Compra finalizada!", Toast.LENGTH_SHORT).show();
+        atualizarCarrinhoNaActivity(carrinhoActivity);
+        Toast.makeText(context, "Compra finalizada!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void atualizarCarrinhoNaActivity(CarrinhoActivity carrinhoActivity) {
+        if (carrinhoActivity != null) {
+            carrinhoActivity.atualizarCarrinho(Carrinho.getListaDeProdutos());
+        }
+    }
+
+
+    public void atualizarAdapter(List<Produto> itensSelecionados, CarrinhoActivity carrinhoActivity) {
+        if (adapter == null) {
+            adapter = new CarrinhoAdapter(itensSelecionados, position -> {
+                Produto produtoRemovido = itensSelecionados.get(position);
+                itensSelecionados.remove(position);
+                adapter.notifyItemRemoved(position);
+                if (carrinhoActivity != null) {
+                    carrinhoActivity.updateSubtotal();
+                }
+                Toast.makeText(context, produtoRemovido.getNome() + " removido do carrinho!", Toast.LENGTH_SHORT).show();
+            });
+            if (carrinhoActivity != null) {
+                carrinhoActivity.recyclerViewItens.setAdapter(adapter);
+            }
+        } else {
+            adapter.notifyDataSetChanged();
+        }
     }
 }

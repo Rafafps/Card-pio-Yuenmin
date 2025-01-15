@@ -1,6 +1,7 @@
 package br.ufv.tp1_poo.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,27 +23,23 @@ public class CarrinhoActivity extends AppCompatActivity {
     public RecyclerView recyclerViewItens;
     private TextView subtotalTextView;
     private String selectedPayment;
-    private CarrinhoController controller;
+    private CarrinhoController carrinhoController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
 
-        // Inicializa os componentes
+        carrinhoController = new CarrinhoController(this);
+
         spinnerFormaPagamento = findViewById(R.id.spinnerFormaPagamento);
         recyclerViewItens = findViewById(R.id.recyclerViewItens);
         subtotalTextView = findViewById(R.id.subtotalText);
 
-        // Configura o RecyclerView
         recyclerViewItens.setLayoutManager(new LinearLayoutManager(this));
 
-        // Configura o Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.formas_pagamento,
-                android.R.layout.simple_spinner_item
-        );
+                this, R.array.formas_pagamento, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFormaPagamento.setAdapter(adapter);
 
@@ -54,31 +51,18 @@ public class CarrinhoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
+            public void onNothingSelected(AdapterView<?> parentView) {}
         });
 
-        controller = new CarrinhoController(this);
-        updateSubtotal();
+        atualizarCarrinho(Carrinho.getListaDeProdutos());
     }
-
     public void updateSubtotal() {
-        double totalValue = 0.0;
-        List<Produto> produtos = Carrinho.getListaDeProdutos();
-        for (Produto produto : produtos) {
-            totalValue += produto.calculaPreco() * produto.getQuantidade();
-        }
-        subtotalTextView.setText("R$ " + String.format("%.2f", totalValue));
+        subtotalTextView.setText("R$ " + String.format("%.2f", Carrinho.calculaTotal())); // Usando Carrinho.calculaTotal()
     }
 
-    public void atualizarCarrinho(List<Produto> itensSelecionados) {
-        if (itensSelecionados == null || itensSelecionados.isEmpty()) {
-            subtotalTextView.setText("R$ 0,00");
-            recyclerViewItens.setAdapter(null);
-            Toast.makeText(this, "Carrinho vazio!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        controller.atualizarAdapter(itensSelecionados);
+    public void atualizarCarrinho(List<Produto> produtos) {
+        Log.d("CarrinhoActivity", "Atualizando carrinho com " + produtos.size() + " produtos.");
+        carrinhoController.atualizarAdapter(produtos, this);
         updateSubtotal();
     }
 }

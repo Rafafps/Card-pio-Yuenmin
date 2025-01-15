@@ -13,9 +13,16 @@ import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.model.Produto;
 
 public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHolder> {
+    public interface CarrinhoListener {
+        void atualizarCarrinho(List<Produto> produtos);
+        void updateSubtotal();
+        void abrirCarrinhoVazio();
+        void abrirCarrinhoCheio();
+    }
 
     private final List<Produto> listaProdutos;
     private final OnItemRemovedListener onItemRemovedListener;
+    private static Produto produto;
 
     public interface OnItemRemovedListener {
         void onItemRemoved(int position);
@@ -39,7 +46,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHo
 
         // Configura os dados do produto
         holder.nomeProduto.setText(produto.getNome());
-        holder.precoProduto.setText(String.format("R$ %.2f", produto.calculaPreco()));
+        holder.precoProduto.setText(String.format("R$ %.2f", produto.calculaPreco() instanceof Float ? produto.calculaPreco() : (float) produto.calculaPreco()));
         holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
 
         // Exemplo de como carregar a imagem (se aplicável)

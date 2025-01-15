@@ -1,30 +1,35 @@
 package br.ufv.tp1_poo.model;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Carrinho {
-    // Lista de produtos compartilhada por toda a classe
-    @JsonProperty("listaDeProdutos") // Para serializar e deserializar corretamente
+    @JsonProperty("listaDeProdutos")
     private static List<Produto> listaDeProdutos = new ArrayList<>();
 
-    // Construtor não é necessário porque a lista é estática
-    public Carrinho() {}
+    public Carrinho() {} // Construtor necessário para serialização/deserialização
 
     public static boolean adicionaProduto(Produto produto) {
-        if (produto == null) return false;
+        if (produto == null) {
+            Log.d("Carrinho", "Produto é nulo, não adicionando.");
+            return false;
+        }
+
+        Log.d("Carrinho", "Tentando adicionar: " + produto.getNome() + ", Quantidade: " + produto.getQuantidade());
 
         for (Produto item : listaDeProdutos) {
             if (item.getNome().equals(produto.getNome())) {
-                // Se já existir, atualiza a quantidade
+                Log.d("Carrinho", "Produto já existe, atualizando quantidade.");
                 item.setQuantidade(item.getQuantidade() + produto.getQuantidade());
                 return true;
             }
         }
-        // Se não existir, adiciona um novo item
+
+        Log.d("Carrinho", "Produto novo, adicionando à lista.");
         listaDeProdutos.add(produto);
         return true;
     }

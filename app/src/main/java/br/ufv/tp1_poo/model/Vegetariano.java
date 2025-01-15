@@ -34,8 +34,8 @@ public class Vegetariano extends Produto {
         }
     }
     @Override
-    public int calculaPreco() {
-        return ((int)this.getPreco() + this.getAdicionalPorTamanho()) * this.getQuantidade();
+    public Float calculaPreco() {
+        return ((float)this.getPreco() + this.getAdicionalPorTamanho()) * this.getQuantidade();
     }
 
     private int getAdicionalPorTamanho() {
