@@ -43,7 +43,6 @@ public class CarrinhoController {
     }
 
     public void finalizarCompra(CarrinhoActivity carrinhoActivity) {
-        Carrinho.limpa();
         atualizarCarrinhoNaActivity(carrinhoActivity);
         Toast.makeText(context, "Compra finalizada!", Toast.LENGTH_SHORT).show();
     }
