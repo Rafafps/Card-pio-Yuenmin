@@ -10,6 +10,7 @@ import br.ufv.tp1_poo.R;
 public class PedidoFinalizadoActivity extends AppCompatActivity {
 
     private TextView botaoVoltarInicial;
+    private TextView numeroPedido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +25,9 @@ public class PedidoFinalizadoActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    public TextView getNumeroPedido() {
+        return numeroPedido;
     }
 }
