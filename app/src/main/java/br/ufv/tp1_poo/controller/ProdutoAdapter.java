@@ -49,9 +49,12 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         holder.descricaoProduto.setText(produto.getDescricao());
         holder.precoProduto.setText(String.format("R$ %.2f", produto.getPreco()));
 
+        int imageResource = holder.itemView.getContext().getResources()
+                .getIdentifier(produto.getImagem(), "drawable", holder.itemView.getContext().getPackageName());
+
         // Carregar imagem do produto com Glide
         Glide.with(holder.itemView.getContext())
-                .load("file:///android_asset/" + produto.getImagem())
+                .load(imageResource)
                 .placeholder(R.drawable.imagem_carregando)
                 .error(R.drawable.imagem_carregando)
                 .into(holder.imagemProduto);

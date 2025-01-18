@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 import br.ufv.tp1_poo.R;
 import br.ufv.tp1_poo.model.Produto;
@@ -49,9 +52,15 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHo
         holder.precoProduto.setText(String.format("R$ %.2f", produto.calculaPreco() instanceof Float ? produto.calculaPreco() : (float) produto.calculaPreco()));
         holder.quantidadeProduto.setText(String.valueOf(produto.getQuantidade()));
 
-        // Exemplo de como carregar a imagem (se aplicável)
-        holder.imagemProduto.setImageResource(R.drawable.imagem_carregando);
+        int imageResource = holder.itemView.getContext().getResources()
+                .getIdentifier(produto.getImagem(), "drawable", holder.itemView.getContext().getPackageName());
 
+        // Carregar imagem do produto com Glide
+        Glide.with(holder.itemView.getContext())
+                .load(imageResource)
+                .placeholder(R.drawable.imagem_carregando)
+                .error(R.drawable.imagem_carregando)
+                .into(holder.imagemProduto);
         // Botão de remover produto
         holder.btnRemoverProduto.setOnClickListener(v -> {
             if (onItemRemovedListener != null) {
