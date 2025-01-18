@@ -60,7 +60,10 @@ public class CarrinhoActivity extends AppCompatActivity {
         atualizarCarrinho(Carrinho.getListaDeProdutos());
         //Volta
         TextView botaoVoltar = findViewById(R.id.botaoVoltar);
-        botaoVoltar.setOnClickListener(view -> finish());
+        botaoVoltar.setOnClickListener(view -> {
+            Intent intent = new Intent(CarrinhoActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
         //Finaliza
         TextView botaoFinalizarCompra = findViewById(R.id.botaoFinalizarCompra);
