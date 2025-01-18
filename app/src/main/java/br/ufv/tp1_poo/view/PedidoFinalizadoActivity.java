@@ -6,9 +6,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.ufv.tp1_poo.R;
+import br.ufv.tp1_poo.controller.PedidoController;
 
 public class PedidoFinalizadoActivity extends AppCompatActivity {
 
+
+    private PedidoController pedidoController;
     private TextView botaoVoltarInicial;
     private TextView numeroPedido;
 
@@ -18,6 +21,7 @@ public class PedidoFinalizadoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pedido_finalizado);
 
         botaoVoltarInicial = findViewById(R.id.botaoVoltarInicial);
+        numeroPedido = findViewById(R.id.numeroPedido);
 
         botaoVoltarInicial.setOnClickListener(v -> {
             // Redireciona para a MainActivity
@@ -25,6 +29,9 @@ public class PedidoFinalizadoActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        pedidoController = new PedidoController(this);
+        pedidoController.carregarNumeroPedido();
     }
 
     public TextView getNumeroPedido() {
