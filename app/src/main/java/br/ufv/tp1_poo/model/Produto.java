@@ -60,7 +60,7 @@ public abstract class Produto implements Serializable {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -128,7 +128,7 @@ public abstract class Produto implements Serializable {
     }
 
     public Float calculaPreco() {
-        return (float)this.preco * this.quantidade;
+        return (float) this.preco * this.quantidade;
     }
     // Metodo estático para deserializar JSON em um objeto Produto
     public static Produto fromJson(String json) {

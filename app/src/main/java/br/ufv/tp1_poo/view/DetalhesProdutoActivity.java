@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,13 +61,11 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         botaoDiminuir.setOnClickListener(v -> produtoController.alterarQuantidade(-1));
         botaoVoltar.setOnClickListener(v -> finish());
 
-        // Pass the current activity (CarrinhoActivity.this) to adicionarProduto
         botaoAdicionar.setOnClickListener(v -> {
-            carrinhoController.adicionarProduto(produto, null); // Passe null
+            produtoController.adicionarAoCarrinho(carrinhoController);
             Intent intent = new Intent(DetalhesProdutoActivity.this, CarrinhoActivity.class);
             startActivity(intent);
         });
-
         radioGroupTamanhos.setOnCheckedChangeListener((group, checkedId) -> produtoController.atualizarValorAdicional());
     }
 
@@ -107,4 +106,14 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     public EditText getObservacaoProduto() {
         return observacaoProduto;
     }
+
+    public String getTamanhoSelecionado() {
+        int checkedId = radioGroupTamanhos.getCheckedRadioButtonId();
+        if (checkedId != -1) {
+            RadioButton selecionado = findViewById(checkedId);
+            return selecionado.getText().toString(); // Ou um valor mais representativo, se tiver
+        }
+        return ""; // Ou um valor padrão, como "Sem Tamanho"
+    }
+
 }

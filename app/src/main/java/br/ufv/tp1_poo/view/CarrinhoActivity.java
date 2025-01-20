@@ -60,10 +60,18 @@ public class CarrinhoActivity extends AppCompatActivity {
         atualizarCarrinho(Carrinho.getListaDeProdutos());
         //Volta
         TextView botaoVoltar = findViewById(R.id.botaoVoltar);
-        botaoVoltar.setOnClickListener(view -> finish());
+        botaoVoltar.setOnClickListener(view -> {
+            if (Carrinho.estaVazio()) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                finish();
+            }
+        });
 
         //Finaliza
         TextView botaoFinalizarCompra = findViewById(R.id.botaoFinalizarCompra);
+        TextView botaoLimpaCarrinho = findViewById(R.id.limparCarrinho);
 
         botaoFinalizarCompra.setOnClickListener(v -> {
             // Iniciar a nova atividade
@@ -71,6 +79,12 @@ public class CarrinhoActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(CarrinhoActivity.this, "Compra finalizada!", Toast.LENGTH_SHORT).show();
             carrinhoController.finalizarCompra(this);
+        });
+        botaoLimpaCarrinho.setOnClickListener(v -> {
+            Intent intent = new Intent(CarrinhoActivity.this, CarrinhoVazioActivity.class);
+            startActivity(intent);
+            Toast.makeText(CarrinhoActivity.this, "Carrinho limpado!", Toast.LENGTH_SHORT).show();
+            carrinhoController.limpaCarrinho();
         });
     }
     @SuppressLint("DefaultLocale")

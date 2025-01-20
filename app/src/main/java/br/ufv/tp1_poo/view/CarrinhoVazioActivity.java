@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import br.ufv.tp1_poo.R;
+import br.ufv.tp1_poo.model.Carrinho;
 
 public class CarrinhoVazioActivity extends AppCompatActivity {
     private TextView botaoVoltar;
@@ -18,11 +19,14 @@ public class CarrinhoVazioActivity extends AppCompatActivity {
         botaoVoltar = findViewById(R.id.botaoVoltar);
         botaoVoltarInicial = findViewById(R.id.botaoVoltarInicial);
 
-        botaoVoltar.setOnClickListener(v -> finish());
-        botaoVoltarInicial.setOnClickListener(v -> {
-            Intent intent = new Intent(CarrinhoVazioActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        TextView botaoVoltar = findViewById(R.id.botaoVoltar);
+        botaoVoltar.setOnClickListener(view -> {
+            if (Carrinho.estaVazio()) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                finish();
+            }
         });
     }
 }

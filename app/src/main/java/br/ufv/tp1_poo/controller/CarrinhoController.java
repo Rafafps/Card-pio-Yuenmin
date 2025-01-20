@@ -17,8 +17,6 @@ public class CarrinhoController {
         this.context = context;
     }
 
-    // ... (outros métodos: atualizarAdapter, adicionarProduto, removerProduto, finalizarCompra)
-
     public void verificarEstadoCarrinho(MainActivity mainActivity) {
         if (Carrinho.estaVazio()) { // Usando o método estaVazio()
             mainActivity.abrirCarrinhoVazio();
@@ -40,6 +38,9 @@ public class CarrinhoController {
             atualizarCarrinhoNaActivity(carrinhoActivity);
             Toast.makeText(context, produto.getNome() + " removido do carrinho!", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void limpaCarrinho(){
+        Carrinho.limpaCarrinho();
     }
 
     public void finalizarCompra(CarrinhoActivity carrinhoActivity) {
