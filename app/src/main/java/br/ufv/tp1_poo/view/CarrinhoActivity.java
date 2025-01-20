@@ -61,12 +61,9 @@ public class CarrinhoActivity extends AppCompatActivity {
         //Volta
         TextView botaoVoltar = findViewById(R.id.botaoVoltar);
         botaoVoltar.setOnClickListener(view -> {
-            if (Carrinho.estaVazio()) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                finish();
-            }
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         //Finaliza
