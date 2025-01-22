@@ -17,7 +17,7 @@
 
 ## Sobre o Projeto
 
-Este projeto foi desenvolvido para a disciplina de **Programação Orientada a Objetos** e tem como objetivo:
+Este projeto foi desenvolvido para a disciplina de **Programação Orientada a Objetos** e implementamos:
 
 Um Cardápio Digital de Visualização criado para facilitar a consulta aos itens disponíveis no estabelecimento.
 A ferramenta permite que os clientes visualizem o menu, conheçam as opções de produtos, preços e descrições detalhadas, mas não possibilita a realização de pedidos diretamente pelo sistema.
