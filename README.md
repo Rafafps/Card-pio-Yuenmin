@@ -1,4 +1,4 @@
-# Cardapio YurnMin
+# Cardapio YuenMin
 ![Licença](https://img.shields.io/badge/Licença-MIT-blue.svg)
 
 ## Índice
